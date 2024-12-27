@@ -1,0 +1,9 @@
+[gd_resource type="NoiseTexture2D" load_steps=2 format=3 uid="uid://82nw8pm2c2rp"]
+
+[ext_resource type="FastNoiseLite" uid="uid://p6817rfm6tog" path="res://resources/table_noise.tres" id="1_qgbud"]
+
+[resource]
+as_normal_map = true
+bump_strength = 4.0
+normalize = false
+noise = ExtResource("1_qgbud")
