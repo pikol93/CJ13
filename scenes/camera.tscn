@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=3 uid="uid://byq0jv6iridnc"]
+
+[ext_resource type="Shader" path="res://shaders/posterization.gdshader" id="1_gul4n"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_r3vew"]
+flip_faces = true
+size = Vector2(2, 2)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_mao03"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_bpay0"]
+width = 960
+height = 540
+seamless = true
+noise = SubResource("FastNoiseLite_mao03")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_g3iem"]
+render_priority = 0
+shader = ExtResource("1_gul4n")
+shader_parameter/levels = 16.0
+shader_parameter/noise = SubResource("NoiseTexture2D_bpay0")
+
+[node name="Camera" type="Camera3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+extra_cull_margin = 16384.0
+mesh = SubResource("QuadMesh_r3vew")
+surface_material_override/0 = SubResource("ShaderMaterial_g3iem")
