@@ -22,6 +22,7 @@ shader_parameter/noise = SubResource("NoiseTexture2D_bpay0")
 
 [node name="Camera" type="Camera3D"]
 current = true
+fov = 60.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 extra_cull_margin = 16384.0
