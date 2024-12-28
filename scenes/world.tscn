@@ -13,7 +13,7 @@ environment = ExtResource("1_py42w")
 [node name="table" parent="." instance=ExtResource("1_noy8h")]
 
 [node name="Player" parent="." instance=ExtResource("2_3y0qj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 1.5)
+transform = Transform3D(1, 0, 0, 0, 0.999786, 0.0206632, 0, -0.0206632, 0.999786, 0, 0, 16)
 
 [node name="StandingTorches" type="Node3D" parent="."]
 

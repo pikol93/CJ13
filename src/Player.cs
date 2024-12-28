@@ -28,13 +28,14 @@ public partial class Player : Node3D
             return;
         }
 
-        var normalized = GlobalPosition.MoveToward(ExpectedLookTarget, 1.0f);
+        var difference = ExpectedLookTarget - Camera.GlobalPosition;
+        var distance = new Vector2(difference.X, difference.Z).Length();
+        
+        var normalizedOnHorizontalPlane = -new Vector2(-difference.Z, difference.X).Angle();
+        var normalizedOnVerticalPlane = -new Vector2(distance, difference.Y).Angle();
 
-        var targetRotationHorizontal = Mathf.Atan2(normalized.X, normalized.Z);
-        var targetRotationVertical = -Mathf.Atan2(normalized.Z, normalized.Y);
-
-        var newRotationHorizontal = Mathf.LerpAngle(Rotation.Y, targetRotationHorizontal, 0.1f);
-        var newRotationVertical = Mathf.LerpAngle(Camera.Rotation.X, targetRotationVertical, 0.1f);
+        var newRotationHorizontal = Mathf.LerpAngle(Rotation.Y, normalizedOnHorizontalPlane, 0.1f);
+        var newRotationVertical = Mathf.LerpAngle(Camera.Rotation.X, -normalizedOnVerticalPlane, 0.1f);
 
         Rotation = new Vector3(0.0f, newRotationHorizontal, 0.0f);
         Camera.Rotation = new Vector3(newRotationVertical, 0.0f, 0.0f);
