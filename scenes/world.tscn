@@ -17,6 +17,7 @@ sky_material = SubResource("ProceduralSkyMaterial_pnsxt")
 [sub_resource type="Environment" id="Environment_r7h1e"]
 background_mode = 2
 sky = SubResource("Sky_xtcmq")
+sky_rotation = Vector3(0.427606, 0.228638, 0.263545)
 tonemap_mode = 2
 glow_enabled = true
 
