@@ -15,7 +15,7 @@ seamless = true
 noise = SubResource("FastNoiseLite_mao03")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_g3iem"]
-render_priority = 0
+render_priority = 1
 shader = ExtResource("1_gul4n")
 shader_parameter/levels = 128.0
 shader_parameter/noise = SubResource("NoiseTexture2D_bpay0")

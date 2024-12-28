@@ -5,6 +5,7 @@
 [ext_resource type="Material" uid="uid://bsb22x8fy3u3w" path="res://resources/standing_torch_fire.tres" id="2_fb00o"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jccue"]
+render_priority = 2
 transparency = 1
 blend_mode = 1
 shading_mode = 0
