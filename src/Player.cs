@@ -1,3 +1,7 @@
+using System;
+using System.Linq;
+using System.Reflection.Metadata.Ecma335;
+using System.Runtime.InteropServices;
 using Godot;
 
 namespace Pikol93.CJ13;
@@ -48,16 +52,28 @@ public partial class Player : Node3D
 
     public override void _Input(InputEvent ev)
     {
-        if (ev is not InputEventMouseMotion mouseMotion)
+        if (ev is InputEventMouseMotion mouseMotion)
         {
-            return;
+            if (Input.IsActionPressed("manual_look"))
+            {
+                HandleLookingAround(mouseMotion);
+            }
+            else
+            {
+                HandleHoveringOverInteractables(mouseMotion);
+            }
         }
-
-        if (!Input.IsActionPressed("manual_look"))
+        else if (ev is InputEventMouseButton mouseButton)
         {
-            return;
+            if (mouseButton.IsActionPressed("select"))
+            {
+                HandleSelectingInteractables(mouseButton);
+            }
         }
+    }
 
+    private void HandleLookingAround(InputEventMouseMotion mouseMotion)
+    {
         var diff = -(mouseMotion.Relative * mouseSensitivity);
 
         var newRotationHorizontal = Rotation.Y + diff.X;
@@ -65,5 +81,42 @@ public partial class Player : Node3D
 
         Rotation = new Vector3(0.0f, newRotationHorizontal, 0.0f);
         Camera.Rotation = new Vector3(newRotationVertical, 0.0f, 0.0f);
+    }
+
+    private void HandleHoveringOverInteractables(InputEventMouseMotion mouseMotion)
+    {
+        var interactable = FindInteractable();
+        GD.Print(interactable?.ToString());
+    }
+
+    private void HandleSelectingInteractables(InputEventMouseButton mouseButton)
+    {
+        FindInteractable();
+    }
+
+    private Interactable FindInteractable()
+    {
+        var spaceState = GetWorld3D().DirectSpaceState;
+        var mousePosition = GetViewport().GetMousePosition();
+        var rayParams = new PhysicsRayQueryParameters3D
+        {
+            From = Camera.GlobalPosition,
+            To = Camera.ProjectPosition(mousePosition, 1024.0f),
+            CollisionMask = 2,
+            CollideWithAreas = true,
+        };
+
+        var result = spaceState.IntersectRay(rayParams);
+        if (result == null)
+        {
+            return null;
+        }
+        var collider = result["collider"].AsGodotObject();
+        if (collider is Interactable interactable)
+        {
+            return interactable;
+        }
+
+        return null;
     }
 }

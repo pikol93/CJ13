@@ -1,10 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://fnidhl32v260"]
+[gd_scene load_steps=7 format=3 uid="uid://fnidhl32v260"]
 
 [ext_resource type="PackedScene" uid="uid://c6wy8ghbcm7bk" path="res://blend/table.blend" id="1_noy8h"]
 [ext_resource type="Environment" uid="uid://cr3biougtmv4w" path="res://resources/world_environment.tres" id="1_py42w"]
 [ext_resource type="PackedScene" uid="uid://byq0jv6iridnc" path="res://scenes/player.tscn" id="2_3y0qj"]
 [ext_resource type="PackedScene" uid="uid://dold8b3hw7xva" path="res://scenes/standing_torch.tscn" id="3_pefk0"]
 [ext_resource type="PackedScene" uid="uid://dlepoh2e5lg0u" path="res://blend/god_mask_5.blend" id="5_oybcm"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mkw80"]
+size = Vector3(6, 6, 2)
 
 [node name="World" type="Node3D"]
 
@@ -44,3 +47,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0, 13)
 
 [node name="god_mask_5" parent="." instance=ExtResource("5_oybcm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, -4)
+
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 13)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.90991, 0)
+shape = SubResource("BoxShape3D_mkw80")
