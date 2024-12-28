@@ -26,6 +26,7 @@ material = SubResource("StandardMaterial3D_jccue")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
+light_color = Color(0.88876, 0.541875, 1.92523e-07, 1)
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="OmniLight3D"]
 amount = 200
