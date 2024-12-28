@@ -1,29 +1,14 @@
-[gd_scene load_steps=7 format=3 uid="uid://fnidhl32v260"]
+[gd_scene load_steps=5 format=3 uid="uid://fnidhl32v260"]
 
 [ext_resource type="PackedScene" uid="uid://c6wy8ghbcm7bk" path="res://blend/table.blend" id="1_noy8h"]
+[ext_resource type="Environment" uid="uid://cr3biougtmv4w" path="res://resources/world_environment.tres" id="1_py42w"]
 [ext_resource type="PackedScene" uid="uid://byq0jv6iridnc" path="res://scenes/camera.tscn" id="2_3y0qj"]
 [ext_resource type="PackedScene" uid="uid://dold8b3hw7xva" path="res://scenes/standing_torch.tscn" id="3_pefk0"]
-
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_pnsxt"]
-sky_top_color = Color(0, 0, 0, 1)
-sky_horizon_color = Color(0, 0, 0, 1)
-ground_bottom_color = Color(0, 0, 0, 1)
-ground_horizon_color = Color(0, 0, 0, 1)
-
-[sub_resource type="Sky" id="Sky_xtcmq"]
-sky_material = SubResource("ProceduralSkyMaterial_pnsxt")
-
-[sub_resource type="Environment" id="Environment_r7h1e"]
-background_mode = 2
-sky = SubResource("Sky_xtcmq")
-sky_rotation = Vector3(0.427606, 0.228638, 0.263545)
-tonemap_mode = 2
-glow_enabled = true
 
 [node name="World" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_r7h1e")
+environment = ExtResource("1_py42w")
 
 [node name="table" parent="." instance=ExtResource("1_noy8h")]
 
