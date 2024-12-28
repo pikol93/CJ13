@@ -1,0 +1,38 @@
+[gd_scene load_steps=3 format=3 uid="uid://cw0el60iguw6j"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_a6gck"]
+font_size = 24
+font_color = Color(1, 0.45, 0, 1)
+outline_size = 2
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_5kyua"]
+font_color = Color(0.98, 0.5488, 0.196, 1)
+outline_size = 2
+outline_color = Color(0, 0, 0, 1)
+
+[node name="Ui" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "TEST ITEM NAME"
+label_settings = SubResource("LabelSettings_a6gck")
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "asdasdasd"
+label_settings = SubResource("LabelSettings_5kyua")
+horizontal_alignment = 1
