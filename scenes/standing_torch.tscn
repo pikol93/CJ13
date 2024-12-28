@@ -1,0 +1,73 @@
+[gd_scene load_steps=10 format=3 uid="uid://dold8b3hw7xva"]
+
+[ext_resource type="PackedScene" uid="uid://be0xregscv1o1" path="res://blend/standing_torch.blend" id="1_2ym3d"]
+[ext_resource type="Texture2D" uid="uid://c8r4h15c71otd" path="res://textures/smoke.png" id="2_3hl0r"]
+
+[sub_resource type="Gradient" id="Gradient_luja0"]
+offsets = PackedFloat32Array(0, 0.171429, 0.212245, 0.24898, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.974924, 0.189552, 0, 1, 0.909314, 0.644674, 0, 1, 0.976471, 0.188235, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_5yi81"]
+gradient = SubResource("Gradient_luja0")
+
+[sub_resource type="Curve" id="Curve_a8hj5"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.120879, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.100752), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_r1s21"]
+curve = SubResource("Curve_a8hj5")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_2an5f"]
+emission_shape_scale = Vector3(0.4, 0.4, 0.4)
+emission_shape = 1
+emission_sphere_radius = 1.0
+angle_min = -720.0
+angle_max = 720.0
+direction = Vector3(0, 1, 0)
+spread = 0.0
+initial_velocity_min = 4.9
+initial_velocity_max = 5.1
+angular_velocity_min = 39.0
+angular_velocity_max = 41.0
+gravity = Vector3(0, 0, 0)
+linear_accel_min = 3.0
+linear_accel_max = 5.0
+scale_min = 0.2
+scale_max = 1.8
+scale_curve = SubResource("CurveTexture_r1s21")
+color_ramp = SubResource("GradientTexture1D_5yi81")
+hue_variation_min = -0.03
+hue_variation_max = 0.02
+anim_speed_min = 1.0
+anim_speed_max = 1.0
+anim_offset_max = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jccue"]
+transparency = 1
+blend_mode = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("2_3hl0r")
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 4
+particles_anim_v_frames = 4
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_egsea"]
+material = SubResource("StandardMaterial3D_jccue")
+
+[node name="StandingTorch" type="Node3D"]
+
+[node name="standing_torch" parent="." instance=ExtResource("1_2ym3d")]
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="OmniLight3D"]
+amount = 200
+randomness = 1.0
+visibility_aabb = AABB(-2, -0.5, -2, 4, 10, 4)
+draw_order = 3
+process_material = SubResource("ParticleProcessMaterial_2an5f")
+draw_pass_1 = SubResource("QuadMesh_egsea")
