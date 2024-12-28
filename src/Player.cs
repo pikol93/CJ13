@@ -24,7 +24,13 @@ public partial class Player : Node3D
     {
         if (Input.IsActionPressed("manual_look"))
         {
+            CursorManager.SetDrag();
             return;
+        }
+
+        if (Input.IsActionJustReleased("manual_look"))
+        {
+            CursorManager.SetArrow();
         }
 
         var difference = ExpectedLookTarget - Camera.GlobalPosition;
