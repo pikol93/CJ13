@@ -25,7 +25,7 @@ material = SubResource("StandardMaterial3D_jccue")
 [node name="standing_torch" parent="." instance=ExtResource("1_2ym3d")]
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="OmniLight3D"]
 amount = 200
