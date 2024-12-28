@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://byq0jv6iridnc"]
+[gd_scene load_steps=7 format=3 uid="uid://byq0jv6iridnc"]
 
 [ext_resource type="Shader" path="res://shaders/posterization.gdshader" id="1_gul4n"]
+[ext_resource type="Script" path="res://src/Player.cs" id="1_iqvrs"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_r3vew"]
 flip_faces = true
@@ -20,11 +21,14 @@ shader = ExtResource("1_gul4n")
 shader_parameter/levels = 128.0
 shader_parameter/noise = SubResource("NoiseTexture2D_bpay0")
 
-[node name="Camera" type="Camera3D"]
+[node name="Player" type="Node3D"]
+script = ExtResource("1_iqvrs")
+
+[node name="Camera" type="Camera3D" parent="."]
 current = true
 fov = 60.0
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Camera"]
 extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_r3vew")
 surface_material_override/0 = SubResource("ShaderMaterial_g3iem")
