@@ -27,7 +27,7 @@ public partial class Player : Node3D
             return;
         }
 
-		var normalized = GlobalPosition.MoveToward(ExpectedLookTarget, 1.0f);
+        var normalized = GlobalPosition.MoveToward(ExpectedLookTarget, 1.0f);
 
         var targetRotationHorizontal = Mathf.Atan2(normalized.X, normalized.Z);
         var targetRotationVertical = -Mathf.Atan2(normalized.Z, normalized.Y);

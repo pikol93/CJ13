@@ -9,13 +9,13 @@ public partial class InteractableCube : Node, DisplayableInteractable
 
     public string DisplayableDescription => "Designed for testing.";
 
-	public void OnMouseEntered()
-	{
-		GD.Print($"Mouse entered {Name}");
-	}
+    public void OnMouseEntered()
+    {
+        GD.Print($"Mouse entered {Name}");
+    }
 
-	public void OnMouseExited()
-	{
-		GD.Print($"Mouse exited {Name}");
-	}
+    public void OnMouseExited()
+    {
+        GD.Print($"Mouse exited {Name}");
+    }
 }
