@@ -1,9 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://fnidhl32v260"]
+[gd_scene load_steps=7 format=3 uid="uid://fnidhl32v260"]
 
 [ext_resource type="PackedScene" uid="uid://c6wy8ghbcm7bk" path="res://blend/table.blend" id="1_noy8h"]
 [ext_resource type="PackedScene" uid="uid://byq0jv6iridnc" path="res://scenes/camera.tscn" id="2_3y0qj"]
 [ext_resource type="PackedScene" uid="uid://dold8b3hw7xva" path="res://scenes/standing_torch.tscn" id="3_pefk0"]
-[ext_resource type="Script" path="res://src/InteractableCube.cs" id="4_5f0ug"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_pnsxt"]
 sky_top_color = Color(0, 0, 0, 1)
@@ -20,12 +19,6 @@ sky = SubResource("Sky_xtcmq")
 sky_rotation = Vector3(0.427606, 0.228638, 0.263545)
 tonemap_mode = 2
 glow_enabled = true
-
-[sub_resource type="BoxMesh" id="BoxMesh_vps2c"]
-size = Vector3(0.2, 0.2, 0.2)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_7ubde"]
-size = Vector3(0.2, 0.2, 0.2)
 
 [node name="World" type="Node3D"]
 
@@ -48,30 +41,3 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0, 5)
 
 [node name="StandingTorch2" parent="." instance=ExtResource("3_pefk0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0, 1)
-
-[node name="Area3D" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.838689, 0.894926, 0.274931)
-script = ExtResource("4_5f0ug")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D"]
-mesh = SubResource("BoxMesh_vps2c")
-skeleton = NodePath("../..")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
-shape = SubResource("BoxShape3D_7ubde")
-
-[node name="Area3D2" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.94547, 0.894926, 0.532391)
-script = ExtResource("4_5f0ug")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D2"]
-mesh = SubResource("BoxMesh_vps2c")
-skeleton = NodePath("../..")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D2"]
-shape = SubResource("BoxShape3D_7ubde")
-
-[connection signal="mouse_entered" from="Area3D" to="Area3D" method="OnMouseEntered"]
-[connection signal="mouse_exited" from="Area3D" to="Area3D" method="OnMouseExited"]
-[connection signal="mouse_entered" from="Area3D2" to="Area3D2" method="OnMouseEntered"]
-[connection signal="mouse_exited" from="Area3D2" to="Area3D2" method="OnMouseExited"]

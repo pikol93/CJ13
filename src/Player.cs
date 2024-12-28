@@ -6,6 +6,7 @@ namespace Pikol93.CJ13;
 public partial class Player : Node3D
 {
     [Export] public float mouseSensitivity = 0.005f;
+	[Export] public float lerpWeight = 0.12f;
     [Export] public float minVerticalAngle = -Mathf.Pi / 2.1f;
     [Export] public float maxVerticalAngle = Mathf.Pi / 2.1f;
 
