@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://c6wy8ghbcm7bk" path="res://blend/table.blend" id="1_noy8h"]
 [ext_resource type="Environment" uid="uid://cr3biougtmv4w" path="res://resources/world_environment.tres" id="1_py42w"]
-[ext_resource type="PackedScene" uid="uid://byq0jv6iridnc" path="res://scenes/camera.tscn" id="2_3y0qj"]
+[ext_resource type="PackedScene" uid="uid://byq0jv6iridnc" path="res://scenes/player.tscn" id="2_3y0qj"]
 [ext_resource type="PackedScene" uid="uid://dold8b3hw7xva" path="res://scenes/standing_torch.tscn" id="3_pefk0"]
 
 [node name="World" type="Node3D"]
@@ -12,17 +12,31 @@ environment = ExtResource("1_py42w")
 
 [node name="table" parent="." instance=ExtResource("1_noy8h")]
 
-[node name="Camera" parent="." instance=ExtResource("2_3y0qj")]
+[node name="Player" parent="." instance=ExtResource("2_3y0qj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 1.5)
 
-[node name="StandingTorch" parent="." instance=ExtResource("3_pefk0")]
+[node name="StandingTorches" type="Node3D" parent="."]
+
+[node name="StandingTorch" parent="StandingTorches" instance=ExtResource("3_pefk0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, 1)
 
-[node name="StandingTorch3" parent="." instance=ExtResource("3_pefk0")]
+[node name="StandingTorch3" parent="StandingTorches" instance=ExtResource("3_pefk0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, 5)
 
-[node name="StandingTorch4" parent="." instance=ExtResource("3_pefk0")]
+[node name="StandingTorch4" parent="StandingTorches" instance=ExtResource("3_pefk0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0, 5)
 
-[node name="StandingTorch2" parent="." instance=ExtResource("3_pefk0")]
+[node name="StandingTorch2" parent="StandingTorches" instance=ExtResource("3_pefk0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0, 1)
+
+[node name="StandingTorch5" parent="StandingTorches" instance=ExtResource("3_pefk0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, 9)
+
+[node name="StandingTorch6" parent="StandingTorches" instance=ExtResource("3_pefk0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0, 9)
+
+[node name="StandingTorch7" parent="StandingTorches" instance=ExtResource("3_pefk0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, 13)
+
+[node name="StandingTorch8" parent="StandingTorches" instance=ExtResource("3_pefk0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0, 13)
