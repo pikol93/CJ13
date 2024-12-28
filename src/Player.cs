@@ -1,4 +1,3 @@
-using System.Runtime.Versioning;
 using Godot;
 
 namespace Pikol93.CJ13;
@@ -6,7 +5,7 @@ namespace Pikol93.CJ13;
 public partial class Player : Node3D
 {
     [Export] public float mouseSensitivity = 0.005f;
-	[Export] public float lerpWeight = 0.12f;
+    [Export] public float lerpWeight = 0.12f;
     [Export] public float minVerticalAngle = -Mathf.Pi / 2.1f;
     [Export] public float maxVerticalAngle = Mathf.Pi / 2.1f;
 
@@ -30,7 +29,7 @@ public partial class Player : Node3D
 
         var difference = ExpectedLookTarget - Camera.GlobalPosition;
         var distance = new Vector2(difference.X, difference.Z).Length();
-        
+
         var normalizedOnHorizontalPlane = -new Vector2(-difference.Z, difference.X).Angle();
         var normalizedOnVerticalPlane = -new Vector2(distance, difference.Y).Angle();
 
