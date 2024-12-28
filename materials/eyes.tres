@@ -1,0 +1,7 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://bphm24tvmtw4w"]
+
+[resource]
+resource_name = "eyes"
+cull_mode = 2
+shading_mode = 0
+albedo_color = Color(0.906332, 0.906332, 0.906332, 1)

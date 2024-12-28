@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://fnidhl32v260"]
+[gd_scene load_steps=6 format=3 uid="uid://fnidhl32v260"]
 
 [ext_resource type="PackedScene" uid="uid://c6wy8ghbcm7bk" path="res://blend/table.blend" id="1_noy8h"]
 [ext_resource type="Environment" uid="uid://cr3biougtmv4w" path="res://resources/world_environment.tres" id="1_py42w"]
 [ext_resource type="PackedScene" uid="uid://byq0jv6iridnc" path="res://scenes/player.tscn" id="2_3y0qj"]
 [ext_resource type="PackedScene" uid="uid://dold8b3hw7xva" path="res://scenes/standing_torch.tscn" id="3_pefk0"]
+[ext_resource type="PackedScene" uid="uid://dlepoh2e5lg0u" path="res://blend/god_mask_5.blend" id="5_oybcm"]
 
 [node name="World" type="Node3D"]
 
@@ -13,7 +14,7 @@ environment = ExtResource("1_py42w")
 [node name="table" parent="." instance=ExtResource("1_noy8h")]
 
 [node name="Player" parent="." instance=ExtResource("2_3y0qj")]
-transform = Transform3D(1, 0, 0, 0, 0.999786, 0.0206632, 0, -0.0206632, 0.999786, 0, 0, 16)
+transform = Transform3D(1, 0, 0, 0, 0.999786, 0.0206632, 0, -0.0206632, 0.999786, 0, -0.085093, 1.03676)
 
 [node name="StandingTorches" type="Node3D" parent="."]
 
@@ -40,3 +41,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, 13)
 
 [node name="StandingTorch8" parent="StandingTorches" instance=ExtResource("3_pefk0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0, 13)
+
+[node name="god_mask_5" parent="." instance=ExtResource("5_oybcm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, -1)
