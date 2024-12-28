@@ -2,7 +2,7 @@ shader_type spatial;
 // Prevent the quad from being affected by lighting and fog. This also improves performance.
 render_mode unshaded, fog_disabled;
 
-uniform float levels: hint_range(1.0, 32.0) = 16.0;
+uniform float levels: hint_range(1.0, 256.0) = 16.0;
 
 uniform sampler2D screen_texture: hint_screen_texture, filter_linear_mipmap;
 uniform sampler2D noise;
