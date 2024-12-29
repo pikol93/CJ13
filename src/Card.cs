@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Godot;
 
@@ -44,6 +45,9 @@ public partial class Card : Area3D
     private bool isEnemy = false;
 
     private Sprite3D iconSprite;
+	private MeshInstance3D meshInstance;
+
+	public Vector3? TargetPosition { get; set; }
 
     [Export]
     public int Health
@@ -129,11 +133,31 @@ public partial class Card : Area3D
         }
     }
 
+	[Export]
+	public bool Hidden { get ; set; }
+
     public override void _Ready()
     {
+		meshInstance = GetNode<MeshInstance3D>("MeshInstance3D");
         UpdateValues();
         UpdateIcon();
         UpdateDirection();
+    }
+
+    public override void _Process(double delta)
+    {
+		if (Engine.IsEditorHint())
+		{
+			return;
+		}
+		
+		if (TargetPosition is Vector3 targetPosition)
+		{
+			GlobalPosition = GlobalPosition.Lerp(targetPosition, 0.1f);
+		}
+		
+		var targetRotation = Hidden ? Mathf.Pi : 0;
+		meshInstance.Rotation = new Vector3(0.0f, 0.0f, Mathf.LerpAngle(meshInstance.Rotation.Z, targetRotation, 0.1f));
     }
 
     private void UpdateValues()
