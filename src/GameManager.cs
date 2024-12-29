@@ -14,10 +14,12 @@ public partial class GameManager : Node
     {
         get => PlayerInteractionBlockageOverride ?? DefaultPlayerInteractionBlockage;
     }
+    public static bool InteractionAtAnyTimeOverride { get; set; } = false;
 
     public static bool CanPlayerInteract
     {
-        get => PlayerInteractionBlockTime == null
+        get => InteractionAtAnyTimeOverride
+            || PlayerInteractionBlockTime == null
             || PlayerInteractionBlockTime?.Add(PlayerInteractionBlockage) < DateTime.Now;
     }
 
@@ -27,5 +29,14 @@ public partial class GameManager : Node
     public override void _Ready()
     {
         GameAnimationTree = (AnimationTree)GetTree().GetNodesInGroup("game_animation_tree")[0];
+    }
+
+    public override void _Input(InputEvent ev)
+    {
+        if (Input.IsActionJustPressed("toggle_interaction_at_any_time"))
+        {
+            InteractionAtAnyTimeOverride = !InteractionAtAnyTimeOverride;
+            GD.Print($"Toggled interaction override: {InteractionAtAnyTimeOverride}");
+        }
     }
 }
