@@ -20,4 +20,12 @@ public partial class GameManager : Node
         get => PlayerInteractionBlockage == null
             || PlayerInteractionBlockTime?.Add(PlayerInteractionBlockage) > DateTime.Now;
     }
+
+    public static AnimationTree GameAnimationTree { get; private set; }
+    public static AnimationNodeStateMachinePlayback GameAnimationTreeStateMachine => (AnimationNodeStateMachinePlayback)GameAnimationTree.Get("parameters/playback").AsGodotObject();
+
+    public override void _Ready()
+    {
+        GameAnimationTree = (AnimationTree)GetTree().GetNodesInGroup("game_animation_tree")[0];
+    }
 }

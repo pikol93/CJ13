@@ -1,15 +1,128 @@
-[gd_scene load_steps=7 format=3 uid="uid://fnidhl32v260"]
+[gd_scene load_steps=18 format=3 uid="uid://fnidhl32v260"]
 
+[ext_resource type="Script" path="res://src/World.cs" id="1_kto6a"]
 [ext_resource type="PackedScene" uid="uid://c6wy8ghbcm7bk" path="res://blend/table.blend" id="1_noy8h"]
 [ext_resource type="Environment" uid="uid://cr3biougtmv4w" path="res://resources/world_environment.tres" id="1_py42w"]
 [ext_resource type="PackedScene" uid="uid://byq0jv6iridnc" path="res://scenes/player.tscn" id="2_3y0qj"]
 [ext_resource type="PackedScene" uid="uid://dold8b3hw7xva" path="res://scenes/standing_torch.tscn" id="3_pefk0"]
 [ext_resource type="PackedScene" uid="uid://dlepoh2e5lg0u" path="res://blend/god_mask_5.blend" id="5_oybcm"]
+[ext_resource type="Script" path="res://src/InteractableArea.cs" id="7_jf23f"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mkw80"]
 size = Vector3(6, 6, 2)
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_vk2qd"]
+animation = &"move_player_first"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_f1l7n"]
+animation = &"move_player_second"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_14q80"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ayf7j"]
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_iomik"]
+states/Start/position = Vector2(19, 33)
+states/move_player_first/node = SubResource("AnimationNodeAnimation_vk2qd")
+states/move_player_first/position = Vector2(151, 33)
+states/move_player_second/node = SubResource("AnimationNodeAnimation_f1l7n")
+states/move_player_second/position = Vector2(354, 33)
+transitions = ["Start", "move_player_first", SubResource("AnimationNodeStateMachineTransition_14q80"), "move_player_first", "move_player_second", SubResource("AnimationNodeStateMachineTransition_ayf7j")]
+graph_offset = Vector2(-47, 0)
+
+[sub_resource type="Animation" id="Animation_uqy38"]
+resource_name = "move_player_first"
+length = 1.5
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Player")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 18, 1.5, 1, 0, 0, 10)
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [1.5],
+"method": &"DisablePlayerInteraction"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_m4qun"]
+length = 0.001
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = false
+tracks/0/path = NodePath("../Player")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 18)
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../god_mask_5:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 1.4, -4)]
+}
+
+[sub_resource type="Animation" id="Animation_cnah7"]
+resource_name = "move_player_second"
+length = 3.5
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Player")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 10, 3, 1, 0, 0, 1)
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [3.5],
+"method": &"DisablePlayerInteraction"
+}]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../god_mask_5:position")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(1, 3.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 1.4, -4), Vector3(0, 1.4, -1.5)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dbsmg"]
+_data = {
+"RESET": SubResource("Animation_m4qun"),
+"move_player_first": SubResource("Animation_uqy38"),
+"move_player_second": SubResource("Animation_cnah7")
+}
+
 [node name="World" type="Node3D"]
+script = ExtResource("1_kto6a")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource("1_py42w")
@@ -17,7 +130,7 @@ environment = ExtResource("1_py42w")
 [node name="table" parent="." instance=ExtResource("1_noy8h")]
 
 [node name="Player" parent="." instance=ExtResource("2_3y0qj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 16)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 18)
 
 [node name="StandingTorches" type="Node3D" parent="."]
 
@@ -46,13 +159,39 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, 13)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0, 13)
 
 [node name="god_mask_5" parent="." instance=ExtResource("5_oybcm")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, -4)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, -1.5)
 
-[node name="Area3D" type="Area3D" parent="."]
+[node name="InteractablePlayerMovementFirst" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 13)
 collision_layer = 2
 collision_mask = 2
+script = ExtResource("7_jf23f")
+targetAnimation = "move_player_first"
+freeSelfOnInteraction = true
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractablePlayerMovementFirst"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.90991, 0)
 shape = SubResource("BoxShape3D_mkw80")
+
+[node name="InteractablePlayerMovementSecond" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.96647)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("7_jf23f")
+targetAnimation = "move_player_second"
+freeSelfOnInteraction = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractablePlayerMovementSecond"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.90991, 0)
+shape = SubResource("BoxShape3D_mkw80")
+
+[node name="GameAnimationTree" type="AnimationTree" parent="." groups=["game_animation_tree"]]
+root_node = NodePath(".")
+tree_root = SubResource("AnimationNodeStateMachine_iomik")
+anim_player = NodePath("AnimationPlayer")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="GameAnimationTree"]
+libraries = {
+"": SubResource("AnimationLibrary_dbsmg")
+}
+next/move_player_first = &"enable_player_interaction"
