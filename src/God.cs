@@ -49,7 +49,6 @@ public partial class God : Node3D
 
     public void PlaySpeechSound()
     {
-        GD.Print("Play");
         speechPlayer.Play();
     }
 
