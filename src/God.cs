@@ -1,3 +1,4 @@
+using System;
 using Godot;
 
 namespace Pikol93.CJ13;
@@ -27,6 +28,16 @@ public partial class God : Node3D
 
         Rotation = new Vector3(0.0f, newRotationHorizontal, 0.0f);
         mask.Rotation = new Vector3(newRotationVertical, 0.0f, 0.0f);
+    }
+
+    public void Speak(string value)
+    {
+        Ui.Instance.Speak(value);
+    }
+
+    public void SpeakMod(string value, double textSpeed, double textEndLingerTime)
+    {
+        Ui.Instance.Speak(value, textSpeed, textEndLingerTime);
     }
 
     private static Vector3 GetPlayerPosition()

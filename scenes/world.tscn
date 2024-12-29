@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://fnidhl32v260"]
+[gd_scene load_steps=29 format=3 uid="uid://fnidhl32v260"]
 
 [ext_resource type="Script" path="res://src/World.cs" id="1_kto6a"]
 [ext_resource type="PackedScene" uid="uid://c6wy8ghbcm7bk" path="res://blend/table.blend" id="1_noy8h"]
@@ -24,6 +24,9 @@ animation = &"move_player_second"
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_wm1wn"]
 animation = &"pre_intro"
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ygng0"]
+animation = &"table_intro"
+
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ayf7j"]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ewsms"]
@@ -32,6 +35,10 @@ animation = &"pre_intro"
 advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_4nk6f"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_rb1n2"]
+switch_mode = 2
+advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_iomik"]
 states/Start/position = Vector2(19, 33)
@@ -43,7 +50,9 @@ states/move_player_second/node = SubResource("AnimationNodeAnimation_f1l7n")
 states/move_player_second/position = Vector2(578, 33)
 states/pre_intro/node = SubResource("AnimationNodeAnimation_wm1wn")
 states/pre_intro/position = Vector2(139, 33)
-transitions = ["move_player_first", "move_player_second", SubResource("AnimationNodeStateMachineTransition_ayf7j"), "intro", "move_player_first", SubResource("AnimationNodeStateMachineTransition_ewsms"), "Start", "pre_intro", SubResource("AnimationNodeStateMachineTransition_if55q"), "pre_intro", "intro", SubResource("AnimationNodeStateMachineTransition_4nk6f")]
+states/table_intro/node = SubResource("AnimationNodeAnimation_ygng0")
+states/table_intro/position = Vector2(746, 33)
+transitions = ["move_player_first", "move_player_second", SubResource("AnimationNodeStateMachineTransition_ayf7j"), "intro", "move_player_first", SubResource("AnimationNodeStateMachineTransition_ewsms"), "Start", "pre_intro", SubResource("AnimationNodeStateMachineTransition_if55q"), "pre_intro", "intro", SubResource("AnimationNodeStateMachineTransition_4nk6f"), "move_player_second", "table_intro", SubResource("AnimationNodeStateMachineTransition_rb1n2")]
 graph_offset = Vector2(-47, 0)
 
 [sub_resource type="Animation" id="Animation_m4qun"]
@@ -454,13 +463,45 @@ tracks/8/keys = {
 "values": [false]
 }
 
+[sub_resource type="Animation" id="Animation_o78h2"]
+resource_name = "table_intro"
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [1.0],
+"method": &"DisablePlayerInteraction"
+}]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../God")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": ["dzień dobry"],
+"method": &"Speak"
+}]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_dbsmg"]
 _data = {
 "RESET": SubResource("Animation_m4qun"),
 "intro": SubResource("Animation_6rx2m"),
 "move_player_first": SubResource("Animation_uqy38"),
 "move_player_second": SubResource("Animation_cnah7"),
-"pre_intro": SubResource("Animation_j4peu")
+"pre_intro": SubResource("Animation_j4peu"),
+"table_intro": SubResource("Animation_o78h2")
 }
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_baci4"]
