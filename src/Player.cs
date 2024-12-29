@@ -67,6 +67,11 @@ public partial class Player : Node3D
         }
     }
 
+    public Vector3 GetCameraPosition()
+    {
+        return Camera.IsInsideTree() ? Camera.GlobalPosition : Vector3.Zero;
+    }
+
     private void HandleLookingAround(InputEventMouseMotion mouseMotion)
     {
         var diff = -(mouseMotion.Relative * mouseSensitivity);
