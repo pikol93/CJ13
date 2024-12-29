@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://fnidhl32v260"]
+[gd_scene load_steps=23 format=3 uid="uid://fnidhl32v260"]
 
 [ext_resource type="Script" path="res://src/World.cs" id="1_kto6a"]
 [ext_resource type="PackedScene" uid="uid://c6wy8ghbcm7bk" path="res://blend/table.blend" id="1_noy8h"]
@@ -7,9 +7,13 @@
 [ext_resource type="PackedScene" uid="uid://dold8b3hw7xva" path="res://scenes/standing_torch.tscn" id="3_pefk0"]
 [ext_resource type="PackedScene" uid="uid://dlepoh2e5lg0u" path="res://blend/god_mask_5.blend" id="5_oybcm"]
 [ext_resource type="Script" path="res://src/InteractableArea.cs" id="7_jf23f"]
+[ext_resource type="Texture2D" uid="uid://4qbve1axhlwc" path="res://textures/cactu_logo.png" id="8_6h5tk"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mkw80"]
 size = Vector3(6, 6, 2)
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_a8lnv"]
+animation = &"intro"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_vk2qd"]
 animation = &"move_player_first"
@@ -17,17 +21,21 @@ animation = &"move_player_first"
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_f1l7n"]
 animation = &"move_player_second"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_14q80"]
-
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ayf7j"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_dx2n2"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ewsms"]
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_iomik"]
 states/Start/position = Vector2(19, 33)
+states/intro/node = SubResource("AnimationNodeAnimation_a8lnv")
+states/intro/position = Vector2(118, 33)
 states/move_player_first/node = SubResource("AnimationNodeAnimation_vk2qd")
-states/move_player_first/position = Vector2(151, 33)
+states/move_player_first/position = Vector2(264, 33)
 states/move_player_second/node = SubResource("AnimationNodeAnimation_f1l7n")
-states/move_player_second/position = Vector2(354, 33)
-transitions = ["Start", "move_player_first", SubResource("AnimationNodeStateMachineTransition_14q80"), "move_player_first", "move_player_second", SubResource("AnimationNodeStateMachineTransition_ayf7j")]
+states/move_player_second/position = Vector2(469, 33)
+transitions = ["move_player_first", "move_player_second", SubResource("AnimationNodeStateMachineTransition_ayf7j"), "Start", "intro", SubResource("AnimationNodeStateMachineTransition_dx2n2"), "intro", "move_player_first", SubResource("AnimationNodeStateMachineTransition_ewsms")]
 graph_offset = Vector2(-47, 0)
 
 [sub_resource type="Animation" id="Animation_uqy38"]
@@ -59,7 +67,7 @@ tracks/1/keys = {
 length = 0.001
 tracks/0/type = "position_3d"
 tracks/0/imported = false
-tracks/0/enabled = false
+tracks/0/enabled = true
 tracks/0/path = NodePath("../Player")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
@@ -75,6 +83,18 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector3(0, 1.4, -4)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../InteractableIntro/Sprite3D:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_cnah7"]
@@ -114,12 +134,60 @@ tracks/2/keys = {
 "values": [Vector3(0, 1.4, -4), Vector3(0, 1.4, -1.5)]
 }
 
+[sub_resource type="Animation" id="Animation_6rx2m"]
+resource_name = "intro"
+length = 9.0
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [9.0],
+"method": &"DisablePlayerInteraction"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../InteractableIntro/Sprite3D:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../InteractableIntro")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_dbsmg"]
 _data = {
 "RESET": SubResource("Animation_m4qun"),
+"intro": SubResource("Animation_6rx2m"),
 "move_player_first": SubResource("Animation_uqy38"),
 "move_player_second": SubResource("Animation_cnah7")
 }
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_baci4"]
+size = Vector3(16, 10, 1)
 
 [node name="World" type="Node3D"]
 script = ExtResource("1_kto6a")
@@ -131,6 +199,7 @@ environment = ExtResource("1_py42w")
 
 [node name="Player" parent="." instance=ExtResource("2_3y0qj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 18)
+visible = false
 
 [node name="StandingTorches" type="Node3D" parent="."]
 
@@ -159,7 +228,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, 13)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0, 13)
 
 [node name="god_mask_5" parent="." instance=ExtResource("5_oybcm")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, -1.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, -4)
 
 [node name="InteractablePlayerMovementFirst" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 13)
@@ -195,3 +264,19 @@ libraries = {
 "": SubResource("AnimationLibrary_dbsmg")
 }
 next/move_player_first = &"enable_player_interaction"
+
+[node name="InteractableIntro" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 15)
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("7_jf23f")
+targetAnimation = "intro"
+
+[node name="Sprite3D" type="Sprite3D" parent="InteractableIntro"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+pixel_size = 0.0015
+billboard = 1
+texture = ExtResource("8_6h5tk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractableIntro"]
+shape = SubResource("BoxShape3D_baci4")
