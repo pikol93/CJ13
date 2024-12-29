@@ -97,7 +97,7 @@ public partial class Player : Node3D
         var interactable = FindInteractable();
         if (GameManager.CanPlayerInteract)
         {
-            GD.Print($"Interacting with {Name}");
+            GD.Print($"Interacting with {interactable?.Name}");
             interactable?.Interact();
         }
     }

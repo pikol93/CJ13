@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://dosygakcp31ep"]
+
+[resource]
+resource_name = "eyes"
+render_priority = 2
+transparency = 1
+cull_mode = 2
+shading_mode = 0
+albedo_color = Color(1, 0.36, 0.36, 0.752941)

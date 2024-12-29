@@ -14,6 +14,8 @@ public partial class InteractableArea : Area3D, IInteractable
     public string DisplayableName => displayableName ?? "";
     public string DisplayableDescription => displayableDescription ?? "";
 
+    string IInteractable.Name => Name;
+
     public void Interact()
     {
         GD.Print($"Interacted with {Name}");
