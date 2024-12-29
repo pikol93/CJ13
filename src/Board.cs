@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using Godot;
 
@@ -6,6 +8,8 @@ namespace Pikol93.CJ13;
 
 public partial class Board : Node3D
 {
+    private static Random random = new Random();
+
     public Node3D myStack;
     public Node3D enemyStack;
     public List<Slot> handSlots = new();
@@ -15,6 +19,9 @@ public partial class Board : Node3D
     public Queue<Card> enemyStackCards = new();
     public List<Card> handCards = new();
     public Dictionary<(int, int), Card> boardCards = new();
+
+    private Card selectedCard;
+    private double waitTimer;
 
     public override void _Ready()
     {
@@ -54,16 +61,47 @@ public partial class Board : Node3D
 
         ClearBoard();
         DrawCards();
+        BeginMyTurn();
+    }
+
+    public override void _Process(double delta)
+    {
+        if (waitTimer > 0.0)
+        {
+            waitTimer -= delta;
+            if (waitTimer <= 0)
+            {
+                PerformEnemyTurn();
+            }
+        }
     }
 
     public void OnBoardSlotSelected(int row, int column)
     {
         GD.Print($"Slot selected: {row} {column}");
+        var card = boardCards.Get((row, column));
+        if (card != null)
+        {
+            SetSelectedCard(card, false, row, column);
+        }
+        else
+        {
+            if (selectedCard != null)
+            {
+                MoveCard(selectedCard, row, column);
+                EndMyTurn();
+            }
+        }
     }
 
     public void OnHandSlotSelected(int handIndex)
     {
         GD.Print($"Hand slot selected: {handIndex}");
+        var card = handCards[handIndex];
+        if (card != null)
+        {
+            SetSelectedCard(card, true, -1, -1);
+        }
     }
 
     public void ClearBoard()
@@ -103,12 +141,6 @@ public partial class Board : Node3D
             handCards.Add(card);
         }
 
-        Card c = stackCards.Dequeue();
-        boardCards.Add((1, 1), c);
-
-        Card d = enemyStackCards.Dequeue();
-        boardCards.Add((3, 3), d);
-
         UpdateCardPositions();
     }
 
@@ -140,11 +172,201 @@ public partial class Board : Node3D
         }
     }
 
-	private IEnumerable<Card> IterCards()
-	{
-		return stackCards
-			.Concat(enemyStackCards)
-			.Concat(handCards)
-			.Concat(boardCards.Select((a, b) => a.Value));
-	}
+    public void BeginMyTurn()
+    {
+        MarkOnlySlotsWithCardsAsSelectable();
+    }
+
+    public void EndMyTurn()
+    {
+        PostTurn();
+        waitTimer = 0.5f;
+    }
+
+    public void PostTurn()
+    {
+        ClearSelectedCard();
+        MarkAllSlotsAsUnpickable();
+        UpdateCardPositions();
+    }
+
+    private void MoveCard(Card card, int row, int column)
+    {
+        if (card == null)
+        {
+            throw new ArgumentException(null, nameof(card));
+        }
+
+        handCards.Remove(card);
+        foreach (var item in boardCards.Where(kvp => kvp.Value == card).ToList())
+        {
+            boardCards.Remove(item.Key);
+        }
+
+        boardCards.Add((row, column), card);
+    }
+
+    private void MarkAllSlotsAsUnpickable()
+    {
+        foreach (var slot in IterSlots())
+        {
+            slot.MakeInvisibleUnpickable();
+        }
+    }
+
+    private void MarkOnlySlotsWithCardsAsSelectable()
+    {
+        MarkAllSlotsAsUnpickable();
+
+        foreach (var card in handCards.Concat(boardCards.Select((a, b) => a.Value)))
+        {
+            var obj = card.Target;
+            if (obj is not Slot slot)
+            {
+                GD.PrintErr($"This should not happen. {card.Name} {card.Target}");
+                continue;
+            }
+
+            slot.MakeAvailable();
+        }
+    }
+
+    private void MarkPossibleMovesAndCardsAsSelectable(List<Vector2I> list)
+    {
+        MarkOnlySlotsWithCardsAsSelectable();
+
+        foreach (var item in list)
+        {
+            var row = item.Y;
+            var column = item.X;
+            var slot = boardSlots[row][column];
+            slot.MakeAvailable();
+        }
+    }
+
+    private void SetSelectedCard(Card card, bool isInHand, int row, int column)
+    {
+        ClearSelectedCard();
+
+        selectedCard = card;
+        card.Select();
+
+        List<Vector2I> possibleSlots;
+        if (isInHand)
+        {
+            possibleSlots = new()
+            {
+                new Vector2I(0, 0),
+                new Vector2I(1, 0),
+                new Vector2I(2, 0),
+                new Vector2I(3, 0),
+                new Vector2I(4, 0),
+            };
+        }
+        else
+        {
+            GD.Print($"Card moves: {card.AvailableMoves}");
+            possibleSlots = card
+                .AvailableMoves
+                .Select((item) => new Vector2I(item.X + column, item.Y + row))
+                .ToList();
+        }
+
+        DiscardOutOfBoundsMoves(possibleSlots);
+        MarkPossibleMovesAndCardsAsSelectable(possibleSlots);
+    }
+
+    private void ClearSelectedCard()
+    {
+        selectedCard?.Unselect();
+        selectedCard = null;
+    }
+
+    private static void DiscardOutOfBoundsMoves(List<Vector2I> list)
+    {
+        list.RemoveAll((item) => item.X < 0 || item.X >= 5 || item.Y < 0 || item.Y >= 3);
+    }
+
+    private IEnumerable<Slot> IterSlots()
+    {
+        return handSlots.Concat(boardSlots.SelectMany(list => list));
+    }
+
+    private IEnumerable<Card> IterCards()
+    {
+        return stackCards
+            .Concat(enemyStackCards)
+            .Concat(handCards)
+            .Concat(boardCards.Select((a, b) => a.Value));
+    }
+
+    private void PerformEnemyTurn()
+    {
+        List<Action> possibleActions = new();
+        var enemyDrawCardOnBoard = EnemyDrawCardOnBoard();
+        if (enemyDrawCardOnBoard != null)
+        {
+            possibleActions.Add(enemyDrawCardOnBoard);
+        }
+
+        var actionMoveCard = EnemyMoveCard();
+        if (actionMoveCard != null)
+        {
+            possibleActions.Add(actionMoveCard);
+        }
+
+        if (possibleActions.Count == 0)
+        {
+            EnemyForfeit();
+            return;
+        }
+
+        var index = random.Next(possibleActions.Count);
+        possibleActions[index].Invoke();
+
+        PostTurn();
+        BeginMyTurn();
+    }
+
+    private Action EnemyDrawCardOnBoard()
+    {
+        if (enemyStackCards.Count == 0)
+        {
+            return null;
+        }
+
+        List<int> possibleColumns = new() { 0, 1, 2, 3, 4 };
+        foreach (var ((row, column), _) in boardCards)
+        {
+            if (row != 3)
+            {
+                continue;
+            }
+
+            possibleColumns.Remove(column);
+        }
+
+        if (possibleColumns.Count == 0)
+        {
+            return null;
+        }
+
+        var index = random.Next(possibleColumns.Count);
+        var newColumn = possibleColumns[index];
+        return () =>
+        {
+            var card = enemyStackCards.Dequeue();
+            boardCards.Add((3, newColumn), card);
+        };
+    }
+
+    private Action EnemyMoveCard()
+    {
+        return null;
+    }
+
+    private static void EnemyForfeit()
+    {
+        GD.Print("Enemy forfeit!");
+    }
 }

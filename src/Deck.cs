@@ -45,7 +45,9 @@ public class Deck
         for (var i = 0; i < cardCount; i++)
         {
             var index = random.Next(CardTemplates.Count);
-            var card = (Card)CardTemplates[index].Duplicate();
+            var template = (Card)CardTemplates[index];
+            var card = (Card)template.Duplicate();
+            card.AvailableMoves = template.AvailableMoves;
             result.Add(card);
         }
 

@@ -31,7 +31,7 @@ public partial class Slot : Area3D, IInteractable
             return;
         }
 
-        var board = GetNode<Board>("../../..");
+        var board = this.GetAncestor<Board>();
         if (handIndex != -1)
         {
             board.OnHandSlotSelected(handIndex);

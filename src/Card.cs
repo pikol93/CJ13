@@ -11,6 +11,7 @@ public partial class Card : Area3D
     private static readonly Texture2D DefaultTexture = GD.Load<Texture2D>("res://textures/card_icons/symbol0.png");
     private static readonly Texture2D FallbackNumberTexture = GD.Load<Texture2D>("res://textures/card_icons/numbers/unknown.png");
     private static readonly StandardMaterial3D AllyMaterial = GD.Load<StandardMaterial3D>("res://materials/card_ally.tres");
+    private static readonly StandardMaterial3D SelectedMaterial = GD.Load<StandardMaterial3D>("res://materials/card_ally_selected.tres");
     private static readonly StandardMaterial3D EnemyMaterial = GD.Load<StandardMaterial3D>("res://materials/card_enemy.tres");
 
     private static List<Texture2D> NumberTextures = new()
@@ -49,7 +50,7 @@ public partial class Card : Area3D
     private MeshInstance3D meshInstance;
 
     public Node3D Target { get; set; }
-	public List<Vector2I> AvailableMoves { get; set; }
+    public List<Vector2I> AvailableMoves { get; set; }
 
     [Export]
     public int Health
@@ -138,6 +139,8 @@ public partial class Card : Area3D
     [Export]
     public bool Hidden { get; set; }
 
+    private bool Selected { get; set; }
+
     public override void _Ready()
     {
         meshInstance = GetNode<MeshInstance3D>("MeshInstance3D");
@@ -171,6 +174,18 @@ public partial class Card : Area3D
 
         var targetRotation = Hidden ? Mathf.Pi : 0;
         meshInstance.Rotation = new Vector3(0.0f, 0.0f, targetRotation);
+    }
+
+    public void Select()
+    {
+        Selected = true;
+        UpdateDirection();
+    }
+
+    public void Unselect()
+    {
+        Selected = false;
+        UpdateDirection();
     }
 
     private void UpdateValues()
@@ -220,6 +235,6 @@ public partial class Card : Area3D
 
         iconSprite.FlipH = isEnemy;
         // iconSprite.FlipV = isEnemy;
-        mesh.SetSurfaceOverrideMaterial(0, isEnemy ? EnemyMaterial : AllyMaterial);
+        mesh.SetSurfaceOverrideMaterial(0, isEnemy ? EnemyMaterial : Selected ? SelectedMaterial : AllyMaterial);
     }
 }
