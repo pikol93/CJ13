@@ -1,17 +1,24 @@
 using System;
+using System.Collections.Generic;
 using Godot;
 
 namespace Pikol93.CJ13;
 
 public partial class God : Node3D
 {
+    private static Random Random = new();
     [Export] public Vector3 expectedLookTarget = Vector3.Zero;
 
     private Node3D mask;
+    private AudioStreamPlayer3D speechPlayer;
+
+    public static God Instance { get; private set; }
 
     public override void _Ready()
     {
+        Instance = this;
         mask = GetNode<Node3D>("god_mask_5");
+        speechPlayer = mask.GetNode<AudioStreamPlayer3D>("AudioStreamPlayer3D");
     }
 
     public override void _Process(double delta)
@@ -38,6 +45,12 @@ public partial class God : Node3D
     public void SpeakMod(string value, double textSpeed, double textEndLingerTime)
     {
         Ui.Instance.Speak(value, textSpeed, textEndLingerTime);
+    }
+
+    public void PlaySpeechSound()
+    {
+        GD.Print("Play");
+        speechPlayer.Play();
     }
 
     private static Vector3 GetPlayerPosition()

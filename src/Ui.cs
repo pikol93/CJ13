@@ -17,11 +17,13 @@ public partial class Ui : Control
     private double timeSinceCurrentSpeech = 0.0;
     private double expectedSpeechTime = 0.01;
     private double expectedSpeechTimeWithLinger = 0.01;
+    private int lastCharactersVisible = 0;
 
     public static Ui Instance { get; private set; }
 
     [Export] public double TextSpeed { get; set; } = 8.0;
     [Export] public double TextEndLingerTime { get; set; } = 1.5;
+    [Export] public int SoundPeriod { get; set; } = 2;
 
     public override void _Ready()
     {
@@ -35,6 +37,8 @@ public partial class Ui : Control
         timeSinceCurrentSpeech += delta;
         if (timeSinceCurrentSpeech > expectedSpeechTimeWithLinger)
         {
+            lastCharactersVisible = 0;
+
             if (speechQueue.Count > 0)
             {
                 var tuple = speechQueue.Dequeue();
@@ -57,6 +61,11 @@ public partial class Ui : Control
             speakLabel.Text = currentSpeech;
             speakLabel.VisibleRatio = (float)(timeSinceCurrentSpeech / expectedSpeechTime);
             descriptionLabel.Text = "";
+            if (speakLabel.VisibleCharacters - lastCharactersVisible >= SoundPeriod)
+            {
+                God.Instance.PlaySpeechSound();
+                lastCharactersVisible = speakLabel.VisibleCharacters;
+            }
         }
         else
         {
