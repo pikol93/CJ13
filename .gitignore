@@ -16,3 +16,6 @@ mono_crash.*.json
 
 Export/
 *.blend1
+
+# Ignore Blender generated texture files
+blend/textures
