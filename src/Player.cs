@@ -89,7 +89,12 @@ public partial class Player : Node3D
 
     private void HandleSelectingInteractables()
     {
-        FindInteractable()?.Interact();
+        var interactable = FindInteractable();
+        if (GameManager.CanPlayerInteract)
+        {
+            GD.Print($"Interacting with {Name}");
+            interactable?.Interact();
+        }
     }
 
     private IInteractable FindInteractable()

@@ -17,8 +17,8 @@ public partial class GameManager : Node
 
     public static bool CanPlayerInteract
     {
-        get => PlayerInteractionBlockage == null
-            || PlayerInteractionBlockTime?.Add(PlayerInteractionBlockage) > DateTime.Now;
+        get => PlayerInteractionBlockTime == null
+            || PlayerInteractionBlockTime?.Add(PlayerInteractionBlockage) < DateTime.Now;
     }
 
     public static AnimationTree GameAnimationTree { get; private set; }
