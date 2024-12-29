@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Godot;
 
 namespace Pikol93.CJ13;
@@ -26,9 +27,12 @@ public partial class GameManager : Node
     public static AnimationTree GameAnimationTree { get; private set; }
     public static AnimationNodeStateMachinePlayback GameAnimationTreeStateMachine => (AnimationNodeStateMachinePlayback)GameAnimationTree.Get("parameters/playback").AsGodotObject();
 
+    public static List<Card> MyDeck { get; private set; }
+
     public override void _Ready()
     {
         GameAnimationTree = (AnimationTree)GetTree().GetNodesInGroup("game_animation_tree")[0];
+        MyDeck = Deck.GenerateDeck(5);
     }
 
     public override void _Input(InputEvent ev)
@@ -38,5 +42,10 @@ public partial class GameManager : Node
             InteractionAtAnyTimeOverride = !InteractionAtAnyTimeOverride;
             GD.Print($"Toggled interaction override: {InteractionAtAnyTimeOverride}");
         }
+    }
+
+    public static void ValidateDeck()
+    {
+        MyDeck.RemoveAll(card => !IsInstanceValid(card));
     }
 }

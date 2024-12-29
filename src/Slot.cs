@@ -21,6 +21,7 @@ public partial class Slot : Area3D, IInteractable
 
     public int row = -1;
     public int column = -1;
+    public int handIndex = -1;
 
     public void Interact()
     {
@@ -30,7 +31,19 @@ public partial class Slot : Area3D, IInteractable
             return;
         }
 
-        GetNode<Board>("../../..").OnSlotSelected(row, column);
+        var board = GetNode<Board>("../../..");
+        if (handIndex != -1)
+        {
+            board.OnHandSlotSelected(handIndex);
+        }
+        else if (row != -1 && column != -1)
+        {
+            board.OnBoardSlotSelected(row, column);
+        }
+        else
+        {
+            GD.PrintErr($"Invalid slot: {Name}");
+        }
     }
 
     public void MakeInvisibleUnpickable()

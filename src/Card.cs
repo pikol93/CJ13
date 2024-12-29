@@ -1,4 +1,5 @@
 using System;
+using System.Buffers;
 using System.Collections.Generic;
 using Godot;
 
@@ -45,9 +46,10 @@ public partial class Card : Area3D
     private bool isEnemy = false;
 
     private Sprite3D iconSprite;
-	private MeshInstance3D meshInstance;
+    private MeshInstance3D meshInstance;
 
-	public Vector3? TargetPosition { get; set; }
+    public Node3D Target { get; set; }
+	public List<Vector2I> AvailableMoves { get; set; }
 
     [Export]
     public int Health
@@ -133,12 +135,12 @@ public partial class Card : Area3D
         }
     }
 
-	[Export]
-	public bool Hidden { get ; set; }
+    [Export]
+    public bool Hidden { get; set; }
 
     public override void _Ready()
     {
-		meshInstance = GetNode<MeshInstance3D>("MeshInstance3D");
+        meshInstance = GetNode<MeshInstance3D>("MeshInstance3D");
         UpdateValues();
         UpdateIcon();
         UpdateDirection();
@@ -146,18 +148,29 @@ public partial class Card : Area3D
 
     public override void _Process(double delta)
     {
-		if (Engine.IsEditorHint())
-		{
-			return;
-		}
-		
-		if (TargetPosition is Vector3 targetPosition)
-		{
-			GlobalPosition = GlobalPosition.Lerp(targetPosition, 0.1f);
-		}
-		
-		var targetRotation = Hidden ? Mathf.Pi : 0;
-		meshInstance.Rotation = new Vector3(0.0f, 0.0f, Mathf.LerpAngle(meshInstance.Rotation.Z, targetRotation, 0.1f));
+        if (Engine.IsEditorHint())
+        {
+            return;
+        }
+
+        if (Target is Node3D target)
+        {
+            GlobalPosition = GlobalPosition.Lerp(target.GlobalPosition, 0.1f);
+        }
+
+        var targetRotation = Hidden ? Mathf.Pi : 0;
+        meshInstance.Rotation = new Vector3(0.0f, 0.0f, Mathf.LerpAngle(meshInstance.Rotation.Z, targetRotation, 0.1f));
+    }
+
+    public void ForceSetPositionAndRotation()
+    {
+        if (Target is Node3D target)
+        {
+            GlobalPosition = target.GlobalPosition;
+        }
+
+        var targetRotation = Hidden ? Mathf.Pi : 0;
+        meshInstance.Rotation = new Vector3(0.0f, 0.0f, targetRotation);
     }
 
     private void UpdateValues()
@@ -206,7 +219,7 @@ public partial class Card : Area3D
         attackLabel.Position = new Vector3(attackLabel.Position.X, attackLabel.Position.Y, -zOffset * multiplier);
 
         iconSprite.FlipH = isEnemy;
-        iconSprite.FlipV = isEnemy;
+        // iconSprite.FlipV = isEnemy;
         mesh.SetSurfaceOverrideMaterial(0, isEnemy ? EnemyMaterial : AllyMaterial);
     }
 }

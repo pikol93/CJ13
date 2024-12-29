@@ -6,7 +6,6 @@ namespace Pikol93.CJ13;
 
 public partial class God : Node3D
 {
-    private static Random Random = new();
     [Export] public Vector3 expectedLookTarget = Vector3.Zero;
 
     private Node3D mask;

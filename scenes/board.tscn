@@ -266,3 +266,47 @@ shape = ExtResource("4_fv40c")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Sprite3D/Row4/Slot5"]
 mesh = SubResource("BoxMesh_oa1bf")
+
+[node name="MyStack" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1, 0, 0.5)
+
+[node name="EnemyStack" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1, 0, -0.5)
+
+[node name="MyHand" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7, 0, 1.1)
+
+[node name="Slot1" type="Area3D" parent="MyHand"]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("3_r0ng4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MyHand/Slot1"]
+shape = ExtResource("4_fv40c")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MyHand/Slot1"]
+mesh = SubResource("BoxMesh_oa1bf")
+
+[node name="Slot2" type="Area3D" parent="MyHand"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 0, 0)
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("3_r0ng4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MyHand/Slot2"]
+shape = ExtResource("4_fv40c")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MyHand/Slot2"]
+mesh = SubResource("BoxMesh_oa1bf")
+
+[node name="Slot3" type="Area3D" parent="MyHand"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 0, 0)
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("3_r0ng4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MyHand/Slot3"]
+shape = ExtResource("4_fv40c")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MyHand/Slot3"]
+mesh = SubResource("BoxMesh_oa1bf")
