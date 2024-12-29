@@ -36,40 +36,15 @@ advance_mode = 2
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_iomik"]
 states/Start/position = Vector2(19, 33)
 states/intro/node = SubResource("AnimationNodeAnimation_a8lnv")
-states/intro/position = Vector2(252, 33)
+states/intro/position = Vector2(253, 33)
 states/move_player_first/node = SubResource("AnimationNodeAnimation_vk2qd")
 states/move_player_first/position = Vector2(388, 33)
 states/move_player_second/node = SubResource("AnimationNodeAnimation_f1l7n")
 states/move_player_second/position = Vector2(578, 33)
 states/pre_intro/node = SubResource("AnimationNodeAnimation_wm1wn")
-states/pre_intro/position = Vector2(138, 33)
+states/pre_intro/position = Vector2(139, 33)
 transitions = ["move_player_first", "move_player_second", SubResource("AnimationNodeStateMachineTransition_ayf7j"), "intro", "move_player_first", SubResource("AnimationNodeStateMachineTransition_ewsms"), "Start", "pre_intro", SubResource("AnimationNodeStateMachineTransition_if55q"), "pre_intro", "intro", SubResource("AnimationNodeStateMachineTransition_4nk6f")]
 graph_offset = Vector2(-47, 0)
-
-[sub_resource type="Animation" id="Animation_uqy38"]
-resource_name = "move_player_first"
-length = 1.5
-tracks/0/type = "position_3d"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../Player")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 18, 1.5, 1, 0, 0, 10)
-tracks/1/type = "method"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("..")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [1.5],
-"method": &"DisablePlayerInteraction"
-}]
-}
 
 [sub_resource type="Animation" id="Animation_m4qun"]
 length = 0.001
@@ -83,76 +58,34 @@ tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 18)
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("../god_mask_5:position")
+tracks/1/path = NodePath("../InteractableIntro/Sprite3D:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 1.4, -4)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("../InteractableIntro/Sprite3D:modulate")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Color(1, 1, 1, 1)]
 }
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("../Player:visible")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../Player:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
 }
-
-[sub_resource type="Animation" id="Animation_cnah7"]
-resource_name = "move_player_second"
-length = 3.5
-tracks/0/type = "position_3d"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../Player")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 10, 3, 1, 0, 0, 1)
-tracks/1/type = "method"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("..")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [3.5],
-"method": &"DisablePlayerInteraction"
-}]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("../god_mask_5:position")
-tracks/2/interp = 2
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(1, 3.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, 1.4, -4), Vector3(0, 1.4, -1.5)]
-}
+tracks/3/type = "position_3d"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../god_mask_5")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = PackedFloat32Array(0, 1, 0, 1.4, -1.5)
 
 [sub_resource type="Animation" id="Animation_6rx2m"]
 resource_name = "intro"
@@ -321,6 +254,77 @@ tracks/11/keys = {
 "update": 1,
 "values": [false, true]
 }
+tracks/12/type = "position_3d"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("../god_mask_5")
+tracks/12/interp = 0
+tracks/12/loop_wrap = false
+tracks/12/keys = PackedFloat32Array(0, 1, 0, 1.4, -4, 6, 1, 0, 1.4, -4)
+
+[sub_resource type="Animation" id="Animation_uqy38"]
+resource_name = "move_player_first"
+length = 1.5
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Player")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 18, 1.5, 1, 0, 0, 10)
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [1.5],
+"method": &"DisablePlayerInteraction"
+}]
+}
+tracks/2/type = "position_3d"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../god_mask_5")
+tracks/2/interp = 1
+tracks/2/loop_wrap = false
+tracks/2/keys = PackedFloat32Array(0, 1, 0, 1.4, -4)
+
+[sub_resource type="Animation" id="Animation_cnah7"]
+resource_name = "move_player_second"
+length = 3.5
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Player")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 10, 3, 1, 0, 0, 1)
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [3.5],
+"method": &"DisablePlayerInteraction"
+}]
+}
+tracks/2/type = "position_3d"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../god_mask_5")
+tracks/2/interp = 2
+tracks/2/loop_wrap = false
+tracks/2/keys = PackedFloat32Array(0, 1, 0, 1.4, -4, 3.5, 1, 0, 1.4, -1.5)
 
 [sub_resource type="Animation" id="Animation_j4peu"]
 resource_name = "pre_intro"
@@ -471,7 +475,10 @@ environment = ExtResource("1_py42w")
 [node name="table" parent="." instance=ExtResource("1_noy8h")]
 
 [node name="Player" parent="." instance=ExtResource("2_3y0qj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 18)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10)
+
+[node name="god_mask_5" parent="." instance=ExtResource("5_oybcm")]
+transform = Transform3D(1.3, 0, 0, 0, 1.3, 0, 0, 0, 1.3, 0, 1.4, -4)
 
 [node name="StandingTorches" type="Node3D" parent="."]
 
@@ -498,9 +505,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, 13)
 
 [node name="StandingTorchR1" parent="StandingTorches" instance=ExtResource("3_pefk0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0, 13)
-
-[node name="god_mask_5" parent="." instance=ExtResource("5_oybcm")]
-transform = Transform3D(1.3, 0, 0, 0, 1.3, 0, 0, 0, 1.3, 0, 1.4, -4)
 
 [node name="InteractablePlayerMovementFirst" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 13)
