@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.InteropServices;
 using Godot;
 
 namespace Pikol93.CJ13;
@@ -218,7 +219,7 @@ public partial class Board : Node3D
     {
         MarkAllSlotsAsUnpickable();
 
-        foreach (var card in handCards.Concat(boardCards.Select((a, b) => a.Value)))
+        foreach (var card in handCards.Concat(boardCards.Select((a, b) => a.Value)).Where((card) => !card.IsEnemy))
         {
             var obj = card.Target;
             if (obj is not Slot slot)
@@ -265,7 +266,6 @@ public partial class Board : Node3D
         }
         else
         {
-            GD.Print($"Card moves: {card.AvailableMoves}");
             possibleSlots = card
                 .AvailableMoves
                 .Select((item) => new Vector2I(item.X + column, item.Y + row))
@@ -273,6 +273,7 @@ public partial class Board : Node3D
         }
 
         DiscardOutOfBoundsMoves(possibleSlots);
+		DiscardUnavailableSlots(possibleSlots);
         MarkPossibleMovesAndCardsAsSelectable(possibleSlots);
     }
 
@@ -282,9 +283,22 @@ public partial class Board : Node3D
         selectedCard = null;
     }
 
+    private static void DiscardOutOfBoundsEnemyMoves(List<Vector2I> list)
+    {
+        var discardCount = list.RemoveAll((item) => item.X < 0 || item.X > 4 || item.Y < 1 || item.Y > 3);
+        GD.Print($"Discarded {discardCount} enemy out of bounds moves. Remaining {list.Count} slots");
+    }
+
     private static void DiscardOutOfBoundsMoves(List<Vector2I> list)
     {
-        list.RemoveAll((item) => item.X < 0 || item.X >= 5 || item.Y < 0 || item.Y >= 3);
+        var discardCount = list.RemoveAll((item) => item.X < 0 || item.X > 4 || item.Y < 0 || item.Y > 2);
+        GD.Print($"Discarded {discardCount} player out of bounds moves. Remaining {list.Count} slots");
+    }
+
+    private void DiscardUnavailableSlots(List<Vector2I> list)
+    {
+        var discardCount = list.RemoveAll((item) => boardCards.ContainsKey((item.Y, item.X)));
+        GD.Print($"Discarded {discardCount} unavailable slots. Remaining {list.Count} slots");
     }
 
     private IEnumerable<Slot> IterSlots()
@@ -362,7 +376,35 @@ public partial class Board : Node3D
 
     private Action EnemyMoveCard()
     {
-        return null;
+        var a = boardCards
+        .Where((item) => item.Value.IsEnemy)
+        .SelectMany((item) =>
+            {
+                var (row, column) = item.Key;
+                var card = item.Value;
+                var movesList = card.AvailableMoves.Select((move) => new Vector2I(column, row) - move).ToList();
+                DiscardOutOfBoundsEnemyMoves(movesList);
+                DiscardUnavailableSlots(movesList);
+
+                var result = movesList.Select((item) => (card, item)).ToList();
+                return result;
+            })
+        .ToList();
+
+        GD.Print($"{a.Count} moves available");
+
+        if (a.Count == 0)
+        {
+            return null;
+        }
+
+        var index = random.Next(a.Count);
+        var (card, move) = a[index];
+
+        return () =>
+        {
+            MoveCard(card, move.Y, move.X);
+        };
     }
 
     private static void EnemyForfeit()
