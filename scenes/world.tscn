@@ -63,7 +63,7 @@ tracks/0/enabled = true
 tracks/0/path = NodePath("../Player")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 18)
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 1)
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
@@ -270,6 +270,13 @@ tracks/12/path = NodePath("../God")
 tracks/12/interp = 1
 tracks/12/loop_wrap = true
 tracks/12/keys = PackedFloat32Array(0, 1, 0, 0, -4)
+tracks/13/type = "position_3d"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("../Player")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = PackedFloat32Array(0, 1, 0, 0, 18)
 
 [sub_resource type="Animation" id="Animation_uqy38"]
 resource_name = "move_player_first"
@@ -462,6 +469,13 @@ tracks/8/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/9/type = "position_3d"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("../Player")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = PackedFloat32Array(0, 1, 0, 0, 18)
 
 [sub_resource type="Animation" id="Animation_o78h2"]
 resource_name = "table_intro"
@@ -520,7 +534,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 18)
 visible = false
 
 [node name="God" parent="." instance=ExtResource("8_4amqu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4)
 
 [node name="StandingTorches" type="Node3D" parent="."]
 
