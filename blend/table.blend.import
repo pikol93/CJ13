@@ -33,9 +33,9 @@ animation/import_rest_as_RESET=false
 import_script/path=""
 _subresources={
 "materials": {
-"table_material": {
+"stone_table": {
 "use_external/enabled": true,
-"use_external/path": "res://materials/table_material.tres"
+"use_external/path": "res://materials/stone_table.tres"
 }
 }
 }
