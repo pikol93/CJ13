@@ -4,9 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://b3dqgi34vrwpd" path="res://textures/grid.png" id="2_ys35a"]
 [ext_resource type="Material" uid="uid://cts88vvt03kkw" path="res://materials/slot_invisible.tres" id="3_4s7mw"]
 [ext_resource type="Script" path="res://src/Slot.cs" id="3_r0ng4"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_2kcxq"]
-size = Vector3(0.2, 0.2, 0.2)
+[ext_resource type="Shape3D" uid="uid://byey863futswj" path="res://resources/slot_shape.tres" id="4_fv40c"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_oa1bf"]
 material = ExtResource("3_4s7mw")
@@ -32,7 +30,7 @@ collision_mask = 0
 script = ExtResource("3_r0ng4")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sprite3D/Row1/Slot1"]
-shape = SubResource("BoxShape3D_2kcxq")
+shape = ExtResource("4_fv40c")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Sprite3D/Row1/Slot1"]
 mesh = SubResource("BoxMesh_oa1bf")
@@ -44,7 +42,7 @@ collision_mask = 0
 script = ExtResource("3_r0ng4")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sprite3D/Row1/Slot2"]
-shape = SubResource("BoxShape3D_2kcxq")
+shape = ExtResource("4_fv40c")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Sprite3D/Row1/Slot2"]
 mesh = SubResource("BoxMesh_oa1bf")
@@ -55,7 +53,7 @@ collision_mask = 0
 script = ExtResource("3_r0ng4")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sprite3D/Row1/Slot3"]
-shape = SubResource("BoxShape3D_2kcxq")
+shape = ExtResource("4_fv40c")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Sprite3D/Row1/Slot3"]
 mesh = SubResource("BoxMesh_oa1bf")
@@ -67,7 +65,7 @@ collision_mask = 0
 script = ExtResource("3_r0ng4")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sprite3D/Row1/Slot4"]
-shape = SubResource("BoxShape3D_2kcxq")
+shape = ExtResource("4_fv40c")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Sprite3D/Row1/Slot4"]
 mesh = SubResource("BoxMesh_oa1bf")
@@ -79,7 +77,7 @@ collision_mask = 0
 script = ExtResource("3_r0ng4")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sprite3D/Row1/Slot5"]
-shape = SubResource("BoxShape3D_2kcxq")
+shape = ExtResource("4_fv40c")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Sprite3D/Row1/Slot5"]
 mesh = SubResource("BoxMesh_oa1bf")
@@ -94,7 +92,7 @@ collision_mask = 0
 script = ExtResource("3_r0ng4")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sprite3D/Row2/Slot1"]
-shape = SubResource("BoxShape3D_2kcxq")
+shape = ExtResource("4_fv40c")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Sprite3D/Row2/Slot1"]
 mesh = SubResource("BoxMesh_oa1bf")
@@ -106,7 +104,7 @@ collision_mask = 0
 script = ExtResource("3_r0ng4")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sprite3D/Row2/Slot2"]
-shape = SubResource("BoxShape3D_2kcxq")
+shape = ExtResource("4_fv40c")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Sprite3D/Row2/Slot2"]
 mesh = SubResource("BoxMesh_oa1bf")
@@ -117,7 +115,7 @@ collision_mask = 0
 script = ExtResource("3_r0ng4")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sprite3D/Row2/Slot3"]
-shape = SubResource("BoxShape3D_2kcxq")
+shape = ExtResource("4_fv40c")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Sprite3D/Row2/Slot3"]
 mesh = SubResource("BoxMesh_oa1bf")
@@ -129,7 +127,7 @@ collision_mask = 0
 script = ExtResource("3_r0ng4")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sprite3D/Row2/Slot4"]
-shape = SubResource("BoxShape3D_2kcxq")
+shape = ExtResource("4_fv40c")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Sprite3D/Row2/Slot4"]
 mesh = SubResource("BoxMesh_oa1bf")
@@ -141,7 +139,7 @@ collision_mask = 0
 script = ExtResource("3_r0ng4")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sprite3D/Row2/Slot5"]
-shape = SubResource("BoxShape3D_2kcxq")
+shape = ExtResource("4_fv40c")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Sprite3D/Row2/Slot5"]
 mesh = SubResource("BoxMesh_oa1bf")
@@ -155,7 +153,7 @@ collision_mask = 0
 script = ExtResource("3_r0ng4")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sprite3D/Row3/Slot1"]
-shape = SubResource("BoxShape3D_2kcxq")
+shape = ExtResource("4_fv40c")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Sprite3D/Row3/Slot1"]
 mesh = SubResource("BoxMesh_oa1bf")
@@ -167,7 +165,7 @@ collision_mask = 0
 script = ExtResource("3_r0ng4")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sprite3D/Row3/Slot2"]
-shape = SubResource("BoxShape3D_2kcxq")
+shape = ExtResource("4_fv40c")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Sprite3D/Row3/Slot2"]
 mesh = SubResource("BoxMesh_oa1bf")
@@ -178,7 +176,7 @@ collision_mask = 0
 script = ExtResource("3_r0ng4")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sprite3D/Row3/Slot3"]
-shape = SubResource("BoxShape3D_2kcxq")
+shape = ExtResource("4_fv40c")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Sprite3D/Row3/Slot3"]
 mesh = SubResource("BoxMesh_oa1bf")
@@ -190,7 +188,7 @@ collision_mask = 0
 script = ExtResource("3_r0ng4")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sprite3D/Row3/Slot4"]
-shape = SubResource("BoxShape3D_2kcxq")
+shape = ExtResource("4_fv40c")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Sprite3D/Row3/Slot4"]
 mesh = SubResource("BoxMesh_oa1bf")
@@ -202,7 +200,7 @@ collision_mask = 0
 script = ExtResource("3_r0ng4")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sprite3D/Row3/Slot5"]
-shape = SubResource("BoxShape3D_2kcxq")
+shape = ExtResource("4_fv40c")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Sprite3D/Row3/Slot5"]
 mesh = SubResource("BoxMesh_oa1bf")
@@ -217,7 +215,7 @@ collision_mask = 0
 script = ExtResource("3_r0ng4")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sprite3D/Row4/Slot1"]
-shape = SubResource("BoxShape3D_2kcxq")
+shape = ExtResource("4_fv40c")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Sprite3D/Row4/Slot1"]
 mesh = SubResource("BoxMesh_oa1bf")
@@ -229,7 +227,7 @@ collision_mask = 0
 script = ExtResource("3_r0ng4")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sprite3D/Row4/Slot2"]
-shape = SubResource("BoxShape3D_2kcxq")
+shape = ExtResource("4_fv40c")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Sprite3D/Row4/Slot2"]
 mesh = SubResource("BoxMesh_oa1bf")
@@ -240,7 +238,7 @@ collision_mask = 0
 script = ExtResource("3_r0ng4")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sprite3D/Row4/Slot3"]
-shape = SubResource("BoxShape3D_2kcxq")
+shape = ExtResource("4_fv40c")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Sprite3D/Row4/Slot3"]
 mesh = SubResource("BoxMesh_oa1bf")
@@ -252,7 +250,7 @@ collision_mask = 0
 script = ExtResource("3_r0ng4")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sprite3D/Row4/Slot4"]
-shape = SubResource("BoxShape3D_2kcxq")
+shape = ExtResource("4_fv40c")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Sprite3D/Row4/Slot4"]
 mesh = SubResource("BoxMesh_oa1bf")
@@ -264,7 +262,7 @@ collision_mask = 0
 script = ExtResource("3_r0ng4")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sprite3D/Row4/Slot5"]
-shape = SubResource("BoxShape3D_2kcxq")
+shape = ExtResource("4_fv40c")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Sprite3D/Row4/Slot5"]
 mesh = SubResource("BoxMesh_oa1bf")
@@ -279,7 +277,7 @@ collision_mask = 0
 script = ExtResource("3_r0ng4")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sprite3D/Row5/Slot1"]
-shape = SubResource("BoxShape3D_2kcxq")
+shape = ExtResource("4_fv40c")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Sprite3D/Row5/Slot1"]
 mesh = SubResource("BoxMesh_oa1bf")
@@ -291,7 +289,7 @@ collision_mask = 0
 script = ExtResource("3_r0ng4")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sprite3D/Row5/Slot2"]
-shape = SubResource("BoxShape3D_2kcxq")
+shape = ExtResource("4_fv40c")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Sprite3D/Row5/Slot2"]
 mesh = SubResource("BoxMesh_oa1bf")
@@ -302,7 +300,7 @@ collision_mask = 0
 script = ExtResource("3_r0ng4")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sprite3D/Row5/Slot3"]
-shape = SubResource("BoxShape3D_2kcxq")
+shape = ExtResource("4_fv40c")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Sprite3D/Row5/Slot3"]
 mesh = SubResource("BoxMesh_oa1bf")
@@ -314,7 +312,7 @@ collision_mask = 0
 script = ExtResource("3_r0ng4")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sprite3D/Row5/Slot4"]
-shape = SubResource("BoxShape3D_2kcxq")
+shape = ExtResource("4_fv40c")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Sprite3D/Row5/Slot4"]
 mesh = SubResource("BoxMesh_oa1bf")
@@ -326,7 +324,7 @@ collision_mask = 0
 script = ExtResource("3_r0ng4")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sprite3D/Row5/Slot5"]
-shape = SubResource("BoxShape3D_2kcxq")
+shape = ExtResource("4_fv40c")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Sprite3D/Row5/Slot5"]
 mesh = SubResource("BoxMesh_oa1bf")

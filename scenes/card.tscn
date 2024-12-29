@@ -1,0 +1,99 @@
+[gd_scene load_steps=11 format=3 uid="uid://dhd2niiaructe"]
+
+[ext_resource type="Script" path="res://src/Card.cs" id="1_a8ark"]
+[ext_resource type="Texture2D" uid="uid://ci14x5qvv6yia" path="res://textures/card_icons/symbol2.png" id="2_qpkof"]
+[ext_resource type="Texture2D" uid="uid://f26u6lmq8ajb" path="res://textures/card_icons/numbers/7.png" id="3_8bu7d"]
+[ext_resource type="Material" uid="uid://di2agnm6asvs2" path="res://materials/card_ally.tres" id="3_80soi"]
+[ext_resource type="Texture2D" uid="uid://dfhsmhgswoejd" path="res://textures/card_icons/sword.png" id="3_c34st"]
+[ext_resource type="Texture2D" uid="uid://qdj6r4l6i0xi" path="res://textures/card_icons/heart.png" id="4_aq0xi"]
+[ext_resource type="Texture2D" uid="uid://brrevgyedafyl" path="res://textures/card_icons/numbers/5.png" id="5_rl1a0"]
+[ext_resource type="Texture2D" uid="uid://dtb7hp55kiv4y" path="res://textures/card_icons/numbers/8.png" id="6_icay6"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_mjuol"]
+material = ExtResource("3_80soi")
+size = Vector2(0.2, 0.2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_l6cel"]
+size = Vector3(0.2, 0.2, 0.2)
+
+[node name="Card" type="Area3D"]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("1_a8ark")
+Health = 7
+AttackVertical = 5
+AttackWest = 8
+AttackEast = 8
+CardIcon = ExtResource("2_qpkof")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.4, 0, 0, 0, 1.4, 0, 0, 0, 1.4, 0, 0.01, 0)
+mesh = SubResource("PlaneMesh_mjuol")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("3_80soi")
+
+[node name="IconSprite" type="Sprite3D" parent="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
+pixel_size = 0.0002
+axis = 1
+render_priority = 2
+texture = ExtResource("2_qpkof")
+
+[node name="Health" type="Sprite3D" parent="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.02, 0.01, 0.08)
+pixel_size = 0.0002
+axis = 1
+render_priority = 2
+texture = ExtResource("3_8bu7d")
+
+[node name="AttackVertical" type="Sprite3D" parent="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.02, 0.01, -0.08)
+pixel_size = 0.0002
+axis = 1
+render_priority = 2
+texture = ExtResource("5_rl1a0")
+
+[node name="AttackWest" type="Sprite3D" parent="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.08, 0.01, -0.02)
+pixel_size = 0.0002
+axis = 1
+render_priority = 2
+texture = ExtResource("6_icay6")
+
+[node name="AttackEast" type="Sprite3D" parent="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.08, 0.01, -0.02)
+pixel_size = 0.0002
+axis = 1
+render_priority = 2
+texture = ExtResource("6_icay6")
+
+[node name="AttackVerticalLabel" type="Sprite3D" parent="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.02, 0.01, -0.08)
+pixel_size = 0.0001
+axis = 1
+render_priority = 2
+texture = ExtResource("3_c34st")
+
+[node name="AttackWestLabel" type="Sprite3D" parent="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.08, 0.01, 0.02)
+pixel_size = 0.0001
+axis = 1
+render_priority = 2
+texture = ExtResource("3_c34st")
+
+[node name="AttackEastLabel" type="Sprite3D" parent="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0803473, 0.01, 0.02)
+pixel_size = 0.0001
+axis = 1
+render_priority = 2
+texture = ExtResource("3_c34st")
+
+[node name="HealthLabel" type="Sprite3D" parent="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.02, 0, 0.08)
+pixel_size = 0.0001
+axis = 1
+render_priority = 2
+texture = ExtResource("4_aq0xi")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_l6cel")

@@ -35,8 +35,9 @@ layout_mode = 2
 text = "TEST ITEM NAME"
 label_settings = SubResource("LabelSettings_a6gck")
 horizontal_alignment = 1
+visible_characters = 0
 visible_characters_behavior = 1
-visible_ratio = -0.0714286
+visible_ratio = 0.0
 
 [node name="DescriptionLabel" type="Label" parent="VBoxContainer"]
 layout_mode = 2
