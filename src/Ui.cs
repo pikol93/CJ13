@@ -33,15 +33,22 @@ public partial class Ui : Control
     public override void _Process(double delta)
     {
         timeSinceCurrentSpeech += delta;
-        if (timeSinceCurrentSpeech > expectedSpeechTimeWithLinger && speechQueue.Count > 0)
+        if (timeSinceCurrentSpeech > expectedSpeechTimeWithLinger)
         {
-            var tuple = speechQueue.Dequeue();
-            currentSpeech = tuple.Item1;
-            var textSpeed = tuple.Item2 ?? TextSpeed;
-            var textEndLingerTime = tuple.Item3 ?? TextEndLingerTime;
-            timeSinceCurrentSpeech = 0.0;
-            expectedSpeechTime = currentSpeech.Length / textSpeed;
-            expectedSpeechTimeWithLinger = expectedSpeechTime + textEndLingerTime;
+			if (speechQueue.Count > 0)
+			{
+				var tuple = speechQueue.Dequeue();
+				currentSpeech = tuple.Item1;
+				var textSpeed = tuple.Item2 ?? TextSpeed;
+				var textEndLingerTime = tuple.Item3 ?? TextEndLingerTime;
+				timeSinceCurrentSpeech = 0.0;
+				expectedSpeechTime = currentSpeech.Length / textSpeed;
+				expectedSpeechTimeWithLinger = expectedSpeechTime + textEndLingerTime;
+			}
+			else
+			{
+				currentSpeech = null;
+			}
         }
 
         if (currentSpeech != null)
