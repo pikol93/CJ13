@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://dold8b3hw7xva"]
+[gd_scene load_steps=7 format=3 uid="uid://dold8b3hw7xva"]
 
 [ext_resource type="PackedScene" uid="uid://be0xregscv1o1" path="res://blend/standing_torch.blend" id="1_2ym3d"]
+[ext_resource type="Script" path="res://src/StandingTorch.cs" id="1_te2yp"]
 [ext_resource type="Texture2D" uid="uid://c8r4h15c71otd" path="res://textures/smoke.png" id="2_3hl0r"]
 [ext_resource type="Material" uid="uid://bsb22x8fy3u3w" path="res://resources/standing_torch_fire.tres" id="2_fb00o"]
 
@@ -21,6 +22,7 @@ particles_anim_loop = false
 material = SubResource("StandardMaterial3D_jccue")
 
 [node name="StandingTorch" type="Node3D"]
+script = ExtResource("1_te2yp")
 
 [node name="standing_torch" parent="." instance=ExtResource("1_2ym3d")]
 
@@ -28,7 +30,8 @@ material = SubResource("StandardMaterial3D_jccue")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
 light_color = Color(0.88876, 0.541875, 1.92523e-07, 1)
 
-[node name="GPUParticles3D" type="GPUParticles3D" parent="OmniLight3D"]
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
 amount = 200
 randomness = 1.0
 visibility_aabb = AABB(-2, -0.5, -2, 4, 10, 4)

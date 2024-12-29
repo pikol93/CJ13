@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://fnidhl32v260"]
+[gd_scene load_steps=26 format=3 uid="uid://fnidhl32v260"]
 
 [ext_resource type="Script" path="res://src/World.cs" id="1_kto6a"]
 [ext_resource type="PackedScene" uid="uid://c6wy8ghbcm7bk" path="res://blend/table.blend" id="1_noy8h"]
@@ -21,21 +21,29 @@ animation = &"move_player_first"
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_f1l7n"]
 animation = &"move_player_second"
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_wm1wn"]
+animation = &"pre_intro"
+
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ayf7j"]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_dx2n2"]
-
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ewsms"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_if55q"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_4nk6f"]
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_iomik"]
 states/Start/position = Vector2(19, 33)
 states/intro/node = SubResource("AnimationNodeAnimation_a8lnv")
-states/intro/position = Vector2(118, 33)
+states/intro/position = Vector2(252, 33)
 states/move_player_first/node = SubResource("AnimationNodeAnimation_vk2qd")
-states/move_player_first/position = Vector2(264, 33)
+states/move_player_first/position = Vector2(388, 33)
 states/move_player_second/node = SubResource("AnimationNodeAnimation_f1l7n")
-states/move_player_second/position = Vector2(469, 33)
-transitions = ["move_player_first", "move_player_second", SubResource("AnimationNodeStateMachineTransition_ayf7j"), "Start", "intro", SubResource("AnimationNodeStateMachineTransition_dx2n2"), "intro", "move_player_first", SubResource("AnimationNodeStateMachineTransition_ewsms")]
+states/move_player_second/position = Vector2(578, 33)
+states/pre_intro/node = SubResource("AnimationNodeAnimation_wm1wn")
+states/pre_intro/position = Vector2(138, 33)
+transitions = ["move_player_first", "move_player_second", SubResource("AnimationNodeStateMachineTransition_ayf7j"), "intro", "move_player_first", SubResource("AnimationNodeStateMachineTransition_ewsms"), "Start", "pre_intro", SubResource("AnimationNodeStateMachineTransition_if55q"), "pre_intro", "intro", SubResource("AnimationNodeStateMachineTransition_4nk6f")]
 graph_offset = Vector2(-47, 0)
 
 [sub_resource type="Animation" id="Animation_uqy38"]
@@ -136,7 +144,7 @@ tracks/2/keys = {
 
 [sub_resource type="Animation" id="Animation_6rx2m"]
 resource_name = "intro"
-length = 9.0
+length = 6.0
 tracks/0/type = "method"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -147,7 +155,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "values": [{
-"args": [9.0],
+"args": [6.0],
 "method": &"DisablePlayerInteraction"
 }]
 }
@@ -155,7 +163,7 @@ tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/path = NodePath("../InteractableIntro/Sprite3D:modulate")
-tracks/1/interp = 1
+tracks/1/interp = 2
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0, 2),
@@ -177,13 +185,242 @@ tracks/2/keys = {
 "method": &"queue_free"
 }]
 }
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../StandingTorches/StandingTorchL1")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(3),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"Enable"
+}]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../StandingTorches/StandingTorchR1")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(3),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"Enable"
+}]
+}
+tracks/5/type = "method"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("../StandingTorches/StandingTorchL2")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(4),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"Enable"
+}]
+}
+tracks/6/type = "method"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("../StandingTorches/StandingTorchR2")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(4),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"Enable"
+}]
+}
+tracks/7/type = "method"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("../StandingTorches/StandingTorchL3")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"Enable"
+}]
+}
+tracks/8/type = "method"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("../StandingTorches/StandingTorchR3")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"Enable"
+}]
+}
+tracks/9/type = "method"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("../StandingTorches/StandingTorchL4")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(6),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"Enable"
+}]
+}
+tracks/10/type = "method"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("../StandingTorches/StandingTorchR4")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(6),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"Enable"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_j4peu"]
+resource_name = "pre_intro"
+length = 0.001
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../StandingTorches/StandingTorchL4")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"Disable"
+}]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../StandingTorches/StandingTorchL3")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"Disable"
+}]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../StandingTorches/StandingTorchR3")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"Disable"
+}]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../StandingTorches/StandingTorchR4")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"Disable"
+}]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../StandingTorches/StandingTorchL2")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"Disable"
+}]
+}
+tracks/5/type = "method"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("../StandingTorches/StandingTorchR2")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"Disable"
+}]
+}
+tracks/6/type = "method"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("../StandingTorches/StandingTorchL1")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"Disable"
+}]
+}
+tracks/7/type = "method"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("../StandingTorches/StandingTorchR1")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"Disable"
+}]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_dbsmg"]
 _data = {
 "RESET": SubResource("Animation_m4qun"),
 "intro": SubResource("Animation_6rx2m"),
 "move_player_first": SubResource("Animation_uqy38"),
-"move_player_second": SubResource("Animation_cnah7")
+"move_player_second": SubResource("Animation_cnah7"),
+"pre_intro": SubResource("Animation_j4peu")
 }
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_baci4"]
@@ -203,28 +440,28 @@ visible = false
 
 [node name="StandingTorches" type="Node3D" parent="."]
 
-[node name="StandingTorch" parent="StandingTorches" instance=ExtResource("3_pefk0")]
+[node name="StandingTorchL4" parent="StandingTorches" instance=ExtResource("3_pefk0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, 1)
 
-[node name="StandingTorch3" parent="StandingTorches" instance=ExtResource("3_pefk0")]
+[node name="StandingTorchL3" parent="StandingTorches" instance=ExtResource("3_pefk0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, 5)
 
-[node name="StandingTorch4" parent="StandingTorches" instance=ExtResource("3_pefk0")]
+[node name="StandingTorchR3" parent="StandingTorches" instance=ExtResource("3_pefk0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0, 5)
 
-[node name="StandingTorch2" parent="StandingTorches" instance=ExtResource("3_pefk0")]
+[node name="StandingTorchR4" parent="StandingTorches" instance=ExtResource("3_pefk0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0, 1)
 
-[node name="StandingTorch5" parent="StandingTorches" instance=ExtResource("3_pefk0")]
+[node name="StandingTorchL2" parent="StandingTorches" instance=ExtResource("3_pefk0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, 9)
 
-[node name="StandingTorch6" parent="StandingTorches" instance=ExtResource("3_pefk0")]
+[node name="StandingTorchR2" parent="StandingTorches" instance=ExtResource("3_pefk0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0, 9)
 
-[node name="StandingTorch7" parent="StandingTorches" instance=ExtResource("3_pefk0")]
+[node name="StandingTorchL1" parent="StandingTorches" instance=ExtResource("3_pefk0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, 13)
 
-[node name="StandingTorch8" parent="StandingTorches" instance=ExtResource("3_pefk0")]
+[node name="StandingTorchR1" parent="StandingTorches" instance=ExtResource("3_pefk0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0, 13)
 
 [node name="god_mask_5" parent="." instance=ExtResource("5_oybcm")]
