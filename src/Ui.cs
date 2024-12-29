@@ -20,8 +20,8 @@ public partial class Ui : Control
 
     public static Ui Instance { get; private set; }
 
-    [Export] public double TextSpeed { get; set; } = 5.0;
-    [Export] public double TextEndLingerTime { get; set; } = 3.0;
+    [Export] public double TextSpeed { get; set; } = 8.0;
+    [Export] public double TextEndLingerTime { get; set; } = 1.5;
 
     public override void _Ready()
     {
@@ -35,20 +35,20 @@ public partial class Ui : Control
         timeSinceCurrentSpeech += delta;
         if (timeSinceCurrentSpeech > expectedSpeechTimeWithLinger)
         {
-			if (speechQueue.Count > 0)
-			{
-				var tuple = speechQueue.Dequeue();
-				currentSpeech = tuple.Item1;
-				var textSpeed = tuple.Item2 ?? TextSpeed;
-				var textEndLingerTime = tuple.Item3 ?? TextEndLingerTime;
-				timeSinceCurrentSpeech = 0.0;
-				expectedSpeechTime = currentSpeech.Length / textSpeed;
-				expectedSpeechTimeWithLinger = expectedSpeechTime + textEndLingerTime;
-			}
-			else
-			{
-				currentSpeech = null;
-			}
+            if (speechQueue.Count > 0)
+            {
+                var tuple = speechQueue.Dequeue();
+                currentSpeech = tuple.Item1;
+                var textSpeed = tuple.Item2 ?? TextSpeed;
+                var textEndLingerTime = tuple.Item3 ?? TextEndLingerTime;
+                timeSinceCurrentSpeech = 0.0;
+                expectedSpeechTime = currentSpeech.Length / textSpeed;
+                expectedSpeechTimeWithLinger = expectedSpeechTime + textEndLingerTime;
+            }
+            else
+            {
+                currentSpeech = null;
+            }
         }
 
         if (currentSpeech != null)
