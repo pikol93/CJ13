@@ -174,7 +174,7 @@ public partial class Card : Area3D
         var mesh = GetNode<MeshInstance3D>("MeshInstance3D");
 
         var multiplier = isEnemy ? -1 : 1;
-        var zOffset = 0.08f;
+        var zOffset = 0.12f;
 
         health.Position = new Vector3(health.Position.X, health.Position.Y, zOffset * multiplier);
         healthLabel.Position = new Vector3(healthLabel.Position.X, healthLabel.Position.Y, zOffset * multiplier);

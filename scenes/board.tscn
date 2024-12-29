@@ -11,17 +11,16 @@ material = ExtResource("3_4s7mw")
 size = Vector3(0.2, 0.2, 0.2)
 
 [node name="Board" type="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.01, 0)
 script = ExtResource("1_kro0r")
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
-transform = Transform3D(-1, -8.74228e-08, 3.82137e-15, 0, -4.37114e-08, -1, 8.74228e-08, -1, 4.37114e-08, 0, 0, 0)
+transform = Transform3D(-1, -8.74228e-08, 3.82137e-15, 0, -4.37114e-08, -1, 8.74228e-08, -1, 4.37114e-08, 0, 0.005, 0)
 pixel_size = 0.0017
 render_priority = 2
 texture = ExtResource("2_ys35a")
 
 [node name="Row1" type="Node3D" parent="Sprite3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.7, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.63, 0)
 
 [node name="Slot1" type="Area3D" parent="Sprite3D/Row1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7, 0, 0)
@@ -83,7 +82,7 @@ shape = ExtResource("4_fv40c")
 mesh = SubResource("BoxMesh_oa1bf")
 
 [node name="Row2" type="Node3D" parent="Sprite3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.35, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.21, 0)
 
 [node name="Slot1" type="Area3D" parent="Sprite3D/Row2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7, 0, 0)
@@ -145,6 +144,7 @@ shape = ExtResource("4_fv40c")
 mesh = SubResource("BoxMesh_oa1bf")
 
 [node name="Row3" type="Node3D" parent="Sprite3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.21, 0)
 
 [node name="Slot1" type="Area3D" parent="Sprite3D/Row3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7, 0, 0)
@@ -206,7 +206,7 @@ shape = ExtResource("4_fv40c")
 mesh = SubResource("BoxMesh_oa1bf")
 
 [node name="Row4" type="Node3D" parent="Sprite3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.63, 0)
 
 [node name="Slot1" type="Area3D" parent="Sprite3D/Row4"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7, 0, 0)
@@ -265,66 +265,4 @@ script = ExtResource("3_r0ng4")
 shape = ExtResource("4_fv40c")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Sprite3D/Row4/Slot5"]
-mesh = SubResource("BoxMesh_oa1bf")
-
-[node name="Row5" type="Node3D" parent="Sprite3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
-
-[node name="Slot1" type="Area3D" parent="Sprite3D/Row5"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7, 0, 0)
-collision_layer = 2
-collision_mask = 0
-script = ExtResource("3_r0ng4")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Sprite3D/Row5/Slot1"]
-shape = ExtResource("4_fv40c")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Sprite3D/Row5/Slot1"]
-mesh = SubResource("BoxMesh_oa1bf")
-
-[node name="Slot2" type="Area3D" parent="Sprite3D/Row5"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.35, 0, 0)
-collision_layer = 2
-collision_mask = 0
-script = ExtResource("3_r0ng4")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Sprite3D/Row5/Slot2"]
-shape = ExtResource("4_fv40c")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Sprite3D/Row5/Slot2"]
-mesh = SubResource("BoxMesh_oa1bf")
-
-[node name="Slot3" type="Area3D" parent="Sprite3D/Row5"]
-collision_layer = 2
-collision_mask = 0
-script = ExtResource("3_r0ng4")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Sprite3D/Row5/Slot3"]
-shape = ExtResource("4_fv40c")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Sprite3D/Row5/Slot3"]
-mesh = SubResource("BoxMesh_oa1bf")
-
-[node name="Slot4" type="Area3D" parent="Sprite3D/Row5"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.35, 0, 0)
-collision_layer = 2
-collision_mask = 0
-script = ExtResource("3_r0ng4")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Sprite3D/Row5/Slot4"]
-shape = ExtResource("4_fv40c")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Sprite3D/Row5/Slot4"]
-mesh = SubResource("BoxMesh_oa1bf")
-
-[node name="Slot5" type="Area3D" parent="Sprite3D/Row5"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7, 0, 0)
-collision_layer = 2
-collision_mask = 0
-script = ExtResource("3_r0ng4")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Sprite3D/Row5/Slot5"]
-shape = ExtResource("4_fv40c")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Sprite3D/Row5/Slot5"]
 mesh = SubResource("BoxMesh_oa1bf")

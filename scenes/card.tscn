@@ -11,7 +11,7 @@
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_mjuol"]
 material = ExtResource("3_80soi")
-size = Vector2(0.2, 0.2)
+size = Vector2(0.2, 0.3)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_l6cel"]
 size = Vector3(0.2, 0.2, 0.2)
@@ -33,64 +33,64 @@ skeleton = NodePath("../..")
 surface_material_override/0 = ExtResource("3_80soi")
 
 [node name="IconSprite" type="Sprite3D" parent="MeshInstance3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
-pixel_size = 0.0002
+transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, 0, 0.005, -0.01)
+pixel_size = 0.0003
 axis = 1
 render_priority = 2
 texture = ExtResource("2_qpkof")
 
 [node name="Health" type="Sprite3D" parent="MeshInstance3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.02, 0.01, 0.08)
-pixel_size = 0.0002
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.02, 0.005, 0.12)
+pixel_size = 0.0004
 axis = 1
 render_priority = 2
 texture = ExtResource("3_8bu7d")
 
 [node name="AttackVertical" type="Sprite3D" parent="MeshInstance3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.02, 0.01, -0.08)
-pixel_size = 0.0002
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.02, 0.005, -0.12)
+pixel_size = 0.0004
 axis = 1
 render_priority = 2
 texture = ExtResource("5_rl1a0")
 
 [node name="AttackWest" type="Sprite3D" parent="MeshInstance3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.08, 0.01, -0.02)
-pixel_size = 0.0002
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.08, 0.005, 0.119762)
+pixel_size = 0.0004
 axis = 1
 render_priority = 2
 texture = ExtResource("6_icay6")
 
 [node name="AttackEast" type="Sprite3D" parent="MeshInstance3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.08, 0.01, -0.02)
-pixel_size = 0.0002
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.08, 0.005, 0.12)
+pixel_size = 0.0004
 axis = 1
 render_priority = 2
 texture = ExtResource("6_icay6")
 
 [node name="AttackVerticalLabel" type="Sprite3D" parent="MeshInstance3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.02, 0.01, -0.08)
-pixel_size = 0.0001
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.02, 0.005, -0.12)
+pixel_size = 0.0002
 axis = 1
 render_priority = 2
 texture = ExtResource("3_c34st")
 
 [node name="AttackWestLabel" type="Sprite3D" parent="MeshInstance3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.08, 0.01, 0.02)
-pixel_size = 0.0001
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.08, 0.005, 0.08)
+pixel_size = 0.0002
 axis = 1
 render_priority = 2
 texture = ExtResource("3_c34st")
 
 [node name="AttackEastLabel" type="Sprite3D" parent="MeshInstance3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0803473, 0.01, 0.02)
-pixel_size = 0.0001
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.08, 0.005, 0.08)
+pixel_size = 0.0002
 axis = 1
 render_priority = 2
 texture = ExtResource("3_c34st")
 
 [node name="HealthLabel" type="Sprite3D" parent="MeshInstance3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.02, 0, 0.08)
-pixel_size = 0.0001
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.02, 0.005, 0.12)
+pixel_size = 0.0002
 axis = 1
 render_priority = 2
 texture = ExtResource("4_aq0xi")
