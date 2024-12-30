@@ -81,7 +81,7 @@ public partial class Ui : Control
         speechQueue.Enqueue((value, textSpeed, textEndLingerTime));
     }
 
-    public void ClearSpeach()
+    public void ClearSpeech()
     {
         currentSpeech = null;
         speechQueue.Clear();

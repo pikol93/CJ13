@@ -28,7 +28,7 @@ public partial class GameManager : Node
     public static AnimationNodeStateMachinePlayback GameAnimationTreeStateMachine => (AnimationNodeStateMachinePlayback)GameAnimationTree.Get("parameters/playback").AsGodotObject();
 
     public static List<Card> MyDeck { get; private set; }
-    public static int EnemyCardCount { get; set; }
+    public static int EnemyCardCount { get; set; } = 3;
 
     public override void _Ready()
     {

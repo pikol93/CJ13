@@ -165,6 +165,13 @@ public partial class Card : Area3D
         meshInstance.Rotation = new Vector3(0.0f, 0.0f, Mathf.LerpAngle(meshInstance.Rotation.Z, targetRotation, 0.1f));
     }
 
+    public Card Clone()
+    {
+        var clone = (Card)Duplicate();
+        clone.AvailableMoves = AvailableMoves;
+        return clone;
+    }
+
     public void ForceSetPositionAndRotation()
     {
         if (Target is Node3D target)

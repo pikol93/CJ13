@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://fnidhl32v260"]
+[gd_scene load_steps=37 format=3 uid="uid://fnidhl32v260"]
 
 [ext_resource type="Script" path="res://src/World.cs" id="1_kto6a"]
 [ext_resource type="PackedScene" uid="uid://c6wy8ghbcm7bk" path="res://blend/table.blend" id="1_noy8h"]
@@ -9,9 +9,13 @@
 [ext_resource type="PackedScene" uid="uid://ffk1m8t7fgvn" path="res://scenes/god.tscn" id="8_4amqu"]
 [ext_resource type="Texture2D" uid="uid://4qbve1axhlwc" path="res://textures/cactu_logo.png" id="8_6h5tk"]
 [ext_resource type="PackedScene" uid="uid://bridhibijtiyg" path="res://scenes/board.tscn" id="9_wn4nj"]
+[ext_resource type="PackedScene" uid="uid://dxv83id8qnkok" path="res://blend/hand.blend" id="10_pf3rp"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mkw80"]
 size = Vector3(6, 6, 2)
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_kfm2e"]
+animation = &"board_game"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_a8lnv"]
 animation = &"intro"
@@ -21,6 +25,9 @@ animation = &"move_player_first"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_f1l7n"]
 animation = &"move_player_second"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_vjnmh"]
+animation = &"player_lost"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_wm1wn"]
 animation = &"pre_intro"
@@ -41,19 +48,28 @@ advance_mode = 2
 switch_mode = 2
 advance_mode = 2
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_em46j"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_6hmfb"]
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_iomik"]
 states/Start/position = Vector2(19, 33)
+states/board_game/node = SubResource("AnimationNodeAnimation_kfm2e")
+states/board_game/position = Vector2(725, 149)
 states/intro/node = SubResource("AnimationNodeAnimation_a8lnv")
 states/intro/position = Vector2(253, 33)
 states/move_player_first/node = SubResource("AnimationNodeAnimation_vk2qd")
 states/move_player_first/position = Vector2(388, 33)
 states/move_player_second/node = SubResource("AnimationNodeAnimation_f1l7n")
 states/move_player_second/position = Vector2(578, 33)
+states/player_lost/node = SubResource("AnimationNodeAnimation_vjnmh")
+states/player_lost/position = Vector2(726, 254)
 states/pre_intro/node = SubResource("AnimationNodeAnimation_wm1wn")
 states/pre_intro/position = Vector2(139, 33)
 states/table_intro/node = SubResource("AnimationNodeAnimation_ygng0")
 states/table_intro/position = Vector2(746, 33)
-transitions = ["move_player_first", "move_player_second", SubResource("AnimationNodeStateMachineTransition_ayf7j"), "intro", "move_player_first", SubResource("AnimationNodeStateMachineTransition_ewsms"), "Start", "pre_intro", SubResource("AnimationNodeStateMachineTransition_if55q"), "pre_intro", "intro", SubResource("AnimationNodeStateMachineTransition_4nk6f"), "move_player_second", "table_intro", SubResource("AnimationNodeStateMachineTransition_rb1n2")]
+transitions = ["move_player_first", "move_player_second", SubResource("AnimationNodeStateMachineTransition_ayf7j"), "intro", "move_player_first", SubResource("AnimationNodeStateMachineTransition_ewsms"), "Start", "pre_intro", SubResource("AnimationNodeStateMachineTransition_if55q"), "pre_intro", "intro", SubResource("AnimationNodeStateMachineTransition_4nk6f"), "move_player_second", "table_intro", SubResource("AnimationNodeStateMachineTransition_rb1n2"), "table_intro", "board_game", SubResource("AnimationNodeStateMachineTransition_em46j"), "board_game", "player_lost", SubResource("AnimationNodeStateMachineTransition_6hmfb")]
 graph_offset = Vector2(-47, 0)
 
 [sub_resource type="Animation" id="Animation_m4qun"]
@@ -96,6 +112,32 @@ tracks/3/path = NodePath("../God")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = PackedFloat32Array(0, 1, 0, 0, -1.5)
+tracks/4/type = "position_3d"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../table/Board")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = PackedFloat32Array(0, 1, 10, 1, 0)
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("../hand:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/6/type = "position_3d"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("../hand")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = PackedFloat32Array(0, 1, 0, 0, 0)
 
 [sub_resource type="Animation" id="Animation_6rx2m"]
 resource_name = "intro"
@@ -509,12 +551,119 @@ tracks/1/keys = {
 }]
 }
 
+[sub_resource type="Animation" id="Animation_vrolq"]
+resource_name = "player_lost"
+length = 5.5
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../table/Board")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 1, 0, 0.9975, 1, 0, 1, 0, 2, 1, 10, 1, 0)
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../God")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.7, 1.06667, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"values": [{
+"args": [],
+"method": &"ClearSpeech"
+}, {
+"args": ["Koniec gry."],
+"method": &"Speak"
+}, {
+"args": ["Przegrałeś."],
+"method": &"Speak"
+}, {
+"args": [],
+"method": &"LookAtPlayer"
+}]
+}
+tracks/2/type = "position_3d"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../hand")
+tracks/2/interp = 1
+tracks/2/loop_wrap = false
+tracks/2/keys = PackedFloat32Array(5, 1, 1, 1.5, -6, 5.5, 1, 0, 1.8, 1)
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../hand:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(5),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("..")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(5.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"Quit"
+}]
+}
+tracks/5/type = "method"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("../Player")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(1.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"LookAtGod"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_n5013"]
+resource_name = "board_game"
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../table/Board")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 10, 1, 0, 1, 1, 0, 1, 0)
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../table/Board")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"ClearBoard"
+}]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_dbsmg"]
 _data = {
 "RESET": SubResource("Animation_m4qun"),
+"board_game": SubResource("Animation_n5013"),
 "intro": SubResource("Animation_6rx2m"),
 "move_player_first": SubResource("Animation_uqy38"),
 "move_player_second": SubResource("Animation_cnah7"),
+"player_lost": SubResource("Animation_vrolq"),
 "pre_intro": SubResource("Animation_j4peu"),
 "table_intro": SubResource("Animation_o78h2")
 }
@@ -529,16 +678,15 @@ script = ExtResource("1_kto6a")
 environment = ExtResource("1_py42w")
 
 [node name="Player" parent="." instance=ExtResource("2_3y0qj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 18)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
 
 [node name="God" parent="." instance=ExtResource("8_4amqu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.5)
 
 [node name="table" parent="." instance=ExtResource("1_noy8h")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
 
 [node name="Board" parent="table" instance=ExtResource("9_wn4nj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 1, 0)
 
 [node name="StandingTorches" type="Node3D" parent="."]
 
@@ -617,3 +765,6 @@ texture = ExtResource("8_6h5tk")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="InteractableIntro"]
 shape = SubResource("BoxShape3D_baci4")
+
+[node name="hand" parent="." instance=ExtResource("10_pf3rp")]
+transform = Transform3D(-0.173648, 0, -0.984808, 0, 1, 0, 0.984808, 0, -0.173648, 0, 1.8, 1)

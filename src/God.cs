@@ -36,6 +36,16 @@ public partial class God : Node3D
         mask.Rotation = new Vector3(newRotationVertical, 0.0f, 0.0f);
     }
 
+    public void LookAtPlayer()
+    {
+        expectedLookTarget = Vector3.Zero;
+    }
+
+    public void ClearSpeech()
+    {
+        Ui.Instance.ClearSpeech();
+    }
+
     public void Speak(string value)
     {
         Ui.Instance.Speak(value);

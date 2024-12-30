@@ -15,4 +15,9 @@ public partial class World : Node3D
         GameManager.PlayerInteractionBlockTime = DateTime.Now;
         GameManager.PlayerInteractionBlockageOverride = TimeSpan.FromSeconds(seconds);
     }
+
+    public void Quit()
+    {
+        GetTree().Quit();
+    }
 }

@@ -68,6 +68,11 @@ public partial class Player : Node3D
         }
     }
 
+    public void LookAtGod()
+    {
+        expectedLookTarget = Vector3.Zero;
+    }
+
     private static Vector3 GetGodPosition()
     {
         var god = God.Instance;

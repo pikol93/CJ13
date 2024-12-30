@@ -26,7 +26,7 @@ public partial class Board : Node3D
     private double postAttackAnimationTimer;
     private double postPlayerTurnTimer;
     private double postEnemyTurnTimer;
-	private int turnsSinceDamageWasDealt = 0;
+    private int turnsSinceDamageWasDealt = 0;
 
     public override void _Ready()
     {
@@ -63,10 +63,6 @@ public partial class Board : Node3D
 
             boardSlots.Add(list);
         }
-
-        ClearBoard();
-        DrawCards();
-		postEnemyTurnTimer = 1.0;
     }
 
     public override void _Process(double delta)
@@ -96,6 +92,10 @@ public partial class Board : Node3D
         if (postAttackAnimationTimer > 0.0)
         {
             postAttackAnimationTimer -= delta;
+            if (postAttackAnimationTimer <= 0.0)
+            {
+                CheckPlayerLost();
+            }
             return;
         }
 
@@ -147,7 +147,7 @@ public partial class Board : Node3D
 
     public void ClearBoard()
     {
-        stackCards = new Queue<Card>(GameManager.MyDeck.Select(item => (Card)item.Duplicate()));
+        stackCards = new Queue<Card>(GameManager.MyDeck.Select(item => item.Clone()));
         enemyStackCards = new Queue<Card>(Deck.GenerateDeck(GameManager.EnemyCardCount));
         foreach (var card in enemyStackCards)
         {
@@ -165,6 +165,9 @@ public partial class Board : Node3D
                 AddChild(card);
             }
         }
+
+        DrawCards();
+        postEnemyTurnTimer = 1.0;
     }
 
     public void DrawCards()
@@ -233,7 +236,7 @@ public partial class Board : Node3D
         MarkAllSlotsAsUnpickable();
         moveAnimationTimer = 0.2;
         UpdateCardPositions();
-		turnsSinceDamageWasDealt += 1;
+        turnsSinceDamageWasDealt += 1;
     }
 
     private void MoveCard(Card card, int row, int column)
@@ -387,7 +390,7 @@ public partial class Board : Node3D
 
         foreach (var (_, rx, attack) in attacks)
         {
-			turnsSinceDamageWasDealt = 0;
+            turnsSinceDamageWasDealt = 0;
             rx.Health -= attack;
             if (rx.Health <= 0)
             {
@@ -513,12 +516,25 @@ public partial class Board : Node3D
         God.Instance.expectedLookTarget = Vector3.Zero;
         Player.Instance.expectedLookTarget = Vector3.Zero;
         God.Instance.Speak("Poddaję się.");
-		GameManager.EnemyCardCount += 1;
+        GameManager.EnemyCardCount += 1;
     }
 
-	private static void PlayerLost()
-	{
-		GD.Print("Player lost.");
+    private void CheckPlayerLost()
+    {
+        var anyPlayerCards = handCards
+            .Concat(boardCards.Select(item => item.Value))
+            .Where(item => !item.IsEnemy)
+            .Any();
+
+        if (!anyPlayerCards)
+        {
+            PlayerLost();
+        }
+    }
+
+    private static void PlayerLost()
+    {
+        GD.Print("Player lost.");
         GameManager.GameAnimationTreeStateMachine.Travel("player_lost");
-	}
+    }
 }
