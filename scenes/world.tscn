@@ -59,6 +59,7 @@ switch_mode = 2
 advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_em46j"]
+switch_mode = 2
 advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_6hmfb"]
@@ -557,6 +558,7 @@ tracks/9/keys = PackedFloat32Array(0, 1, 0, 0, 18)
 
 [sub_resource type="Animation" id="Animation_o78h2"]
 resource_name = "table_intro"
+length = 9.0
 tracks/0/type = "method"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -567,7 +569,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "values": [{
-"args": [1.0],
+"args": [9.0],
 "method": &"DisablePlayerInteraction"
 }]
 }
@@ -578,10 +580,13 @@ tracks/1/path = NodePath("../God")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 3.53333),
+"transitions": PackedFloat32Array(1, 1),
 "values": [{
-"args": ["dzień dobry"],
+"args": ["Zostałeś wybrany jako poświęcenie dla bogów."],
+"method": &"Speak"
+}, {
+"args": ["Dam Tobie jednak szansę. Zagraj ze mną i niech szczęście zadecyduje o Twoim losie."],
 "method": &"Speak"
 }]
 }
@@ -708,14 +713,11 @@ tracks/1/path = NodePath("../God")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 3.03333, 6, 6.03333, 8),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0.0333333, 6, 6.03333, 8),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "values": [{
-"args": ["Poddaję się."],
-"method": &"Speak"
-}, {
-"args": ["Przegrałem."],
-"method": &"Speak"
+"args": [],
+"method": &"SpeakLoss"
 }, {
 "args": ["Zobaczmy..."],
 "method": &"Speak"

@@ -556,6 +556,7 @@ public partial class Board : Node3D
         God.Instance.expectedLookTarget = Vector3.Zero;
         Player.Instance.expectedLookTarget = Vector3.Zero;
         GameManager.EnemyCardCount += 1;
+        GameManager.GodLosses += 1;
         GameManager.GameAnimationTreeStateMachine.Travel("enemy_lost");
     }
 

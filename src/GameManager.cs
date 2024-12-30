@@ -31,6 +31,7 @@ public partial class GameManager : Node
     public static List<Card> MyDeck { get; private set; }
     public static int EnemyCardCount { get; set; } = 2;
     public static int HandSize { get; set; } = 2;
+    public static int GodLosses { get; set; } = 0;
 
     public override void _Ready()
     {

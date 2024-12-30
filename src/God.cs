@@ -61,6 +61,19 @@ public partial class God : Node3D
         Ui.Instance.Speak(value, textSpeed, textEndLingerTime);
     }
 
+    public void SpeakLoss()
+    {
+        string text = GameManager.GodLosses switch
+        {
+            1 => "Jedna przegrana o niczym nie świadczy.",
+            2 => "Do trzech razy sztuka. Jeszcze raz.",
+            3 => "To na pewno kwestia szczęścia.",
+            _ => "Zagrajmy jeszcze raz.",
+        };
+
+        Speak(text);
+    }
+
     public void PlaySpeechSound()
     {
         speechPlayer.Play();
