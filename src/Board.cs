@@ -147,8 +147,8 @@ public partial class Board : Node3D
 
     public void ClearBoard()
     {
-        stackCards = new Queue<Card>(GameManager.MyDeck);
-        enemyStackCards = new Queue<Card>(Deck.GenerateDeck(3));
+        stackCards = new Queue<Card>(GameManager.MyDeck.Select(item => (Card)item.Duplicate()));
+        enemyStackCards = new Queue<Card>(Deck.GenerateDeck(GameManager.EnemyCardCount));
         foreach (var card in enemyStackCards)
         {
             card.IsEnemy = true;
@@ -233,6 +233,7 @@ public partial class Board : Node3D
         MarkAllSlotsAsUnpickable();
         moveAnimationTimer = 0.2;
         UpdateCardPositions();
+		turnsSinceDamageWasDealt += 1;
     }
 
     private void MoveCard(Card card, int row, int column)
@@ -386,11 +387,11 @@ public partial class Board : Node3D
 
         foreach (var (_, rx, attack) in attacks)
         {
+			turnsSinceDamageWasDealt = 0;
             rx.Health -= attack;
             if (rx.Health <= 0)
             {
                 rx.QueueFree();
-                GameManager.ValidateDeck();
                 ValidateDeck();
             }
         }
@@ -512,5 +513,12 @@ public partial class Board : Node3D
         God.Instance.expectedLookTarget = Vector3.Zero;
         Player.Instance.expectedLookTarget = Vector3.Zero;
         God.Instance.Speak("Poddaję się.");
+		GameManager.EnemyCardCount += 1;
     }
+
+	private static void PlayerLost()
+	{
+		GD.Print("Player lost.");
+        GameManager.GameAnimationTreeStateMachine.Travel("player_lost");
+	}
 }

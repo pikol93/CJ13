@@ -262,7 +262,7 @@ tracks/11/keys = {
 "times": PackedFloat32Array(0, 2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [false, true]
+"values": [true, true]
 }
 tracks/12/type = "position_3d"
 tracks/12/imported = false
@@ -468,7 +468,7 @@ tracks/8/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [false]
+"values": [true]
 }
 tracks/9/type = "position_3d"
 tracks/9/imported = false
@@ -530,7 +530,6 @@ environment = ExtResource("1_py42w")
 
 [node name="Player" parent="." instance=ExtResource("2_3y0qj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 18)
-visible = false
 
 [node name="God" parent="." instance=ExtResource("8_4amqu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.5)
@@ -613,6 +612,7 @@ targetAnimation = "intro"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 pixel_size = 0.0015
 billboard = 1
+render_priority = 2
 texture = ExtResource("8_6h5tk")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="InteractableIntro"]
