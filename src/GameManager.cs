@@ -46,6 +46,6 @@ public partial class GameManager : Node
 
     public static void ValidateDeck()
     {
-        MyDeck.RemoveAll(card => !IsInstanceValid(card));
+        MyDeck.RemoveAll(card => !IsInstanceValid(card) || card.IsQueuedForDeletion());
     }
 }

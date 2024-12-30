@@ -1,15 +1,14 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Runtime.InteropServices;
+using System.Threading.Tasks.Dataflow;
 using Godot;
 
 namespace Pikol93.CJ13;
 
 public partial class Board : Node3D
 {
-    private static Random random = new Random();
+    private static readonly Random random = new();
 
     public Node3D myStack;
     public Node3D enemyStack;
@@ -22,7 +21,12 @@ public partial class Board : Node3D
     public Dictionary<(int, int), Card> boardCards = new();
 
     private Card selectedCard;
-    private double waitTimer;
+    private bool lastTurnPlayer = true;
+    private double moveAnimationTimer;
+    private double attackAnimationTimer;
+    private double postAttackAnimationTimer;
+    private double postPlayerTurnTimer;
+    private double postEnemyTurnTimer;
 
     public override void _Ready()
     {
@@ -62,17 +66,53 @@ public partial class Board : Node3D
 
         ClearBoard();
         DrawCards();
-        BeginMyTurn();
+        BeginPlayerTurn();
     }
 
     public override void _Process(double delta)
     {
-        if (waitTimer > 0.0)
+        if (moveAnimationTimer > 0.0)
         {
-            waitTimer -= delta;
-            if (waitTimer <= 0)
+            moveAnimationTimer -= delta;
+            if (moveAnimationTimer <= 0.0)
+            {
+                attackAnimationTimer = 0.1;
+            }
+            return;
+        }
+
+        if (attackAnimationTimer > 0.0)
+        {
+            attackAnimationTimer -= delta;
+            if (attackAnimationTimer <= 0.0)
+            {
+                PerformAttacks();
+                GD.Print($"Count: {boardCards.Count}");
+                postAttackAnimationTimer = 0.1;
+            }
+            return;
+        }
+
+        if (postAttackAnimationTimer > 0.0)
+        {
+            postAttackAnimationTimer -= delta;
+            return;
+        }
+
+        if (postPlayerTurnTimer > 0.0)
+        {
+            postPlayerTurnTimer -= delta;
+            if (postPlayerTurnTimer <= 0)
             {
                 PerformEnemyTurn();
+            }
+        }
+        if (postEnemyTurnTimer > 0.0)
+        {
+            postEnemyTurnTimer -= delta;
+            if (postEnemyTurnTimer <= 0)
+            {
+                BeginPlayerTurn();
             }
         }
     }
@@ -173,21 +213,23 @@ public partial class Board : Node3D
         }
     }
 
-    public void BeginMyTurn()
+    public void BeginPlayerTurn()
     {
+        lastTurnPlayer = true;
         MarkOnlySlotsWithCardsAsSelectable();
     }
 
     public void EndMyTurn()
     {
         PostTurn();
-        waitTimer = 0.5f;
+        postPlayerTurnTimer = 0.2f;
     }
 
     public void PostTurn()
     {
         ClearSelectedCard();
         MarkAllSlotsAsUnpickable();
+        moveAnimationTimer = 0.2;
         UpdateCardPositions();
     }
 
@@ -273,7 +315,7 @@ public partial class Board : Node3D
         }
 
         DiscardOutOfBoundsMoves(possibleSlots);
-		DiscardUnavailableSlots(possibleSlots);
+        DiscardUnavailableSlots(possibleSlots);
         MarkPossibleMovesAndCardsAsSelectable(possibleSlots);
     }
 
@@ -314,8 +356,69 @@ public partial class Board : Node3D
             .Concat(boardCards.Select((a, b) => a.Value));
     }
 
+    private void PerformAttacks()
+    {
+        List<(Card, Card, int)> attacks = new();
+        foreach (var ((row, column), card) in boardCards.Where(card => card.Value.IsEnemy != lastTurnPlayer))
+        {
+            if (card.AttackVertical > 0)
+            {
+                var newRow = row + (card.IsEnemy ? -1 : 1);
+                var receiver = boardCards.Get((newRow, column));
+                if (receiver != null && card.IsEnemy != receiver.IsEnemy)
+                {
+                    attacks.Add((card, receiver, card.AttackVertical));
+                }
+            }
+
+            if (card.AttackWest > 0)
+            {
+                var receiver = boardCards.Get((row, column - 1));
+                if (receiver != null && card.IsEnemy != receiver.IsEnemy)
+                {
+                    attacks.Add((card, receiver, card.AttackVertical));
+                }
+            }
+
+            if (card.AttackEast > 0)
+            {
+                var receiver = boardCards.Get((row, column + 1));
+                if (receiver != null && card.IsEnemy != receiver.IsEnemy)
+                {
+                    attacks.Add((card, receiver, card.AttackVertical));
+                }
+            }
+        }
+
+        foreach (var (_, rx, attack) in attacks)
+        {
+            rx.Health -= attack;
+            if (rx.Health <= 0)
+            {
+                rx.QueueFree();
+                GameManager.ValidateDeck();
+                ValidateDeck();
+            }
+        }
+    }
+
+    private void ValidateDeck()
+    {
+        var keys = new List<(int, int)>(boardCards.Keys);
+        foreach (var key in keys)
+        {
+            var card = boardCards[key];
+            if (!IsInstanceValid(card) || card.IsQueuedForDeletion())
+            {
+                GD.Print($"Invalid card instance. Removing key {key}");
+                boardCards.Remove(key);
+            }
+        }
+    }
+
     private void PerformEnemyTurn()
     {
+        lastTurnPlayer = false;
         List<Action> possibleActions = new();
         var enemyDrawCardOnBoard = EnemyDrawCardOnBoard();
         if (enemyDrawCardOnBoard != null)
@@ -339,7 +442,7 @@ public partial class Board : Node3D
         possibleActions[index].Invoke();
 
         PostTurn();
-        BeginMyTurn();
+        postEnemyTurnTimer = 0.2;
     }
 
     private Action EnemyDrawCardOnBoard()
