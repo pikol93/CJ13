@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://db0pfsrb8adeq"]
+
+[ext_resource type="Script" path="res://src/TreeReward.cs" id="1_ke318"]
+[ext_resource type="PackedScene" uid="uid://c5cw5ctskt202" path="res://blend/tree.blend" id="2_t1yeo"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cqntg"]
+size = Vector3(0.237742, 0.356629, 0.178702)
+
+[node name="TreeReward" type="Area3D"]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("1_ke318")
+displayableName = "Yaxche"
+displayableDescription = "Symbol wszechświata zwiększa liczbę kart w Twojej talii."
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0127741, 0.166107, 0.0243058)
+shape = SubResource("BoxShape3D_cqntg")
+
+[node name="tree" parent="." instance=ExtResource("2_t1yeo")]
+transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0.00815654, 0, 0.0288481)

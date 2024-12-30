@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://v188vvwj8kpt"]
+
+[ext_resource type="PackedScene" uid="uid://bgc7vpm7bfpph" path="res://scenes/health_reward.tscn" id="1_j7mtj"]
+[ext_resource type="PackedScene" uid="uid://d2xvxqdvsx4yp" path="res://scenes/hand_reward.tscn" id="2_qdj1w"]
+[ext_resource type="PackedScene" uid="uid://dv31o2dna3t8r" path="res://scenes/temple_reward.tscn" id="3_e4vg0"]
+[ext_resource type="PackedScene" uid="uid://db0pfsrb8adeq" path="res://scenes/tree_reward.tscn" id="4_3ihtm"]
+
+[node name="Rewards" type="Node3D"]
+
+[node name="HealthReward" parent="." instance=ExtResource("1_j7mtj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.667872, 0, 0.282534)
+
+[node name="HandReward" parent="." instance=ExtResource("2_qdj1w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.166195, 5.96046e-08, 0.170934)
+
+[node name="TempleReward" parent="." instance=ExtResource("3_e4vg0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.898828, 0, 0.194663)
+
+[node name="TreeReward" parent="." instance=ExtResource("4_3ihtm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.255553, 0, 0.303393)

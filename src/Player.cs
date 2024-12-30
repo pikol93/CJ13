@@ -13,6 +13,8 @@ public partial class Player : Node3D
     public static Player Instance { get; private set; }
     private Camera3D Camera { get; set; }
 
+    private IInteractable hoveredInteractable;
+
     public override void _Ready()
     {
         Instance = this;
@@ -21,6 +23,11 @@ public partial class Player : Node3D
 
     public override void _Process(double delta)
     {
+        if (hoveredInteractable?.IsDisplayable ?? false)
+        {
+            Ui.Instance.Item(hoveredInteractable.Name, hoveredInteractable.DisplayableDescription);
+        }
+
         if (Input.IsActionPressed("manual_look"))
         {
             CursorManager.SetDrag();
@@ -103,10 +110,7 @@ public partial class Player : Node3D
     private void HandleHoveringOverInteractables()
     {
         var interactable = FindInteractable();
-        if (interactable?.IsDisplayable ?? false)
-        {
-            GD.PrintErr("TODO: Display interactable");
-        }
+        hoveredInteractable = interactable;
     }
 
     private void HandleSelectingInteractables()

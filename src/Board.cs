@@ -11,7 +11,7 @@ public partial class Board : Node3D
 
     public Node3D myStack;
     public Node3D enemyStack;
-	public List<Slot> totalHandSlots = new();
+    public List<Slot> totalHandSlots = new();
     public List<Slot> handSlots = new();
     public List<List<Slot>> boardSlots = new();
 
@@ -116,6 +116,16 @@ public partial class Board : Node3D
                 BeginPlayerTurn();
             }
         }
+
+        if (Input.IsActionJustPressed("instant_win"))
+        {
+            EnemyForfeit();
+        }
+
+        if (Input.IsActionJustPressed("instant_loss"))
+        {
+            PlayerLost();
+        }
     }
 
     public void OnBoardSlotSelected(int row, int column)
@@ -167,7 +177,7 @@ public partial class Board : Node3D
             }
         }
 
-		handSlots = totalHandSlots.Take(GameManager.HandSize).ToList();
+        handSlots = totalHandSlots.Take(GameManager.HandSize).ToList();
         postEnemyTurnTimer = 1.0;
     }
 
@@ -220,8 +230,8 @@ public partial class Board : Node3D
     public void BeginPlayerTurn()
     {
         lastTurnPlayer = true;
-		DrawCards();
-		UpdateCardPositions();
+        DrawCards();
+        UpdateCardPositions();
         MarkOnlySlotsWithCardsAsSelectable();
         God.Instance.expectedLookTarget = Vector3.Zero;
         Player.Instance.expectedLookTarget = new Vector3(0.0f, 0.8f, 0.4f);
@@ -518,8 +528,8 @@ public partial class Board : Node3D
         GD.Print("Enemy forfeit!");
         God.Instance.expectedLookTarget = Vector3.Zero;
         Player.Instance.expectedLookTarget = Vector3.Zero;
-        God.Instance.Speak("Poddaję się.");
         GameManager.EnemyCardCount += 1;
+        GameManager.GameAnimationTreeStateMachine.Travel("enemy_lost");
     }
 
     private void CheckPlayerLost()

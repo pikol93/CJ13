@@ -18,6 +18,7 @@ public partial class Ui : Control
     private double expectedSpeechTime = 0.01;
     private double expectedSpeechTimeWithLinger = 0.01;
     private int lastCharactersVisible = 0;
+    private double timeSinceItem = 0.0;
 
     public static Ui Instance { get; private set; }
 
@@ -34,6 +35,13 @@ public partial class Ui : Control
 
     public override void _Process(double delta)
     {
+        timeSinceItem -= delta;
+        if (timeSinceItem < 0.0)
+        {
+            currentItemName = "";
+            currentItemDescription = "";
+        }
+
         timeSinceCurrentSpeech += delta;
         if (timeSinceCurrentSpeech > expectedSpeechTimeWithLinger)
         {
@@ -85,5 +93,12 @@ public partial class Ui : Control
     {
         currentSpeech = null;
         speechQueue.Clear();
+    }
+
+    public void Item(string name, string description)
+    {
+        currentItemName = name;
+        currentItemDescription = description;
+        timeSinceItem = 0.1;
     }
 }

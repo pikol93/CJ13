@@ -29,13 +29,13 @@ public partial class GameManager : Node
     public static AnimationNodeStateMachinePlayback GameAnimationTreeStateMachine => (AnimationNodeStateMachinePlayback)GameAnimationTree.Get("parameters/playback").AsGodotObject();
 
     public static List<Card> MyDeck { get; private set; }
-    public static int EnemyCardCount { get; set; } = 3;
+    public static int EnemyCardCount { get; set; } = 2;
     public static int HandSize { get; set; } = 2;
 
     public override void _Ready()
     {
         GameAnimationTree = (AnimationTree)GetTree().GetNodesInGroup("game_animation_tree")[0];
-        MyDeck = Deck.GenerateDeck(5);
+        MyDeck = Deck.GenerateDeck(3);
     }
 
     public override void _Input(InputEvent ev)

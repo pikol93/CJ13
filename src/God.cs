@@ -41,6 +41,11 @@ public partial class God : Node3D
         expectedLookTarget = Vector3.Zero;
     }
 
+    public void LookAtStuff()
+    {
+        expectedLookTarget = new Vector3(-5.0f, 1.0f, 0.0f);
+    }
+
     public void ClearSpeech()
     {
         Ui.Instance.ClearSpeech();

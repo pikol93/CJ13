@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://dv31o2dna3t8r"]
+
+[ext_resource type="Script" path="res://src/TempleReward.cs" id="1_d6dcy"]
+[ext_resource type="PackedScene" uid="uid://314wyktx3rdt" path="res://blend/mayo_temple.blend" id="2_6ixfw"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cqntg"]
+size = Vector3(0.536038, 0.238083, 0.468322)
+
+[node name="TempleReward" type="Area3D"]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("1_d6dcy")
+displayableName = "Mayo'nez"
+displayableDescription = "Bogowie będą stać po Twojej stronie wzmacniając atak Twoich jednostek."
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0111763, 0.111563, -0.000114352)
+shape = SubResource("BoxShape3D_cqntg")
+
+[node name="mayo_temple" parent="." instance=ExtResource("2_6ixfw")]
+transform = Transform3D(0.24, 0, 0, 0, 0.24, 0, 0, 0, 0.24, 0, 0, 0)

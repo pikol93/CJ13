@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://d2xvxqdvsx4yp"]
+
+[ext_resource type="Script" path="res://src/HandReward.cs" id="1_telgw"]
+[ext_resource type="PackedScene" uid="uid://dxv83id8qnkok" path="res://blend/hand.blend" id="2_e2dmf"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cqntg"]
+size = Vector3(0.282368, 0.421265, 0.20602)
+
+[node name="HandReward" type="Area3D"]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("1_telgw")
+displayableName = "Dodatkowa dłoń"
+displayableDescription = "Zwiększa ilość kart trzymanych w dłoni."
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0350873, 0.198425, -0.0313626)
+shape = SubResource("BoxShape3D_cqntg")
+
+[node name="hand" parent="." instance=ExtResource("2_e2dmf")]
+transform = Transform3D(-3.81332e-09, -0.0872387, -1.9981, 2, -8.74228e-08, 0, -8.73396e-08, -1.9981, 0.0872387, -0.00877941, 0.125104, -0.010945)

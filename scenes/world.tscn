@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://fnidhl32v260"]
+[gd_scene load_steps=49 format=3 uid="uid://fnidhl32v260"]
 
 [ext_resource type="Script" path="res://src/World.cs" id="1_kto6a"]
 [ext_resource type="PackedScene" uid="uid://c6wy8ghbcm7bk" path="res://blend/table.blend" id="1_noy8h"]
@@ -10,12 +10,19 @@
 [ext_resource type="Texture2D" uid="uid://4qbve1axhlwc" path="res://textures/cactu_logo.png" id="8_6h5tk"]
 [ext_resource type="PackedScene" uid="uid://bridhibijtiyg" path="res://scenes/board.tscn" id="9_wn4nj"]
 [ext_resource type="PackedScene" uid="uid://dxv83id8qnkok" path="res://blend/hand.blend" id="10_pf3rp"]
+[ext_resource type="PackedScene" uid="uid://v188vvwj8kpt" path="res://scenes/Rewards.tscn" id="11_kjcmt"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mkw80"]
 size = Vector3(6, 6, 2)
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_kfm2e"]
 animation = &"board_game"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_1451j"]
+animation = &"enemy_lost"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_8yqrs"]
+animation = &"hide_rewards"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_a8lnv"]
 animation = &"intro"
@@ -31,6 +38,9 @@ animation = &"player_lost"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_wm1wn"]
 animation = &"pre_intro"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_w4typ"]
+animation = &"reward_items"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ygng0"]
 animation = &"table_intro"
@@ -53,10 +63,26 @@ advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_6hmfb"]
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_mneh6"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_bkow8"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0nrxi"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_j3d58"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_phtby"]
+switch_mode = 2
+advance_mode = 2
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_iomik"]
 states/Start/position = Vector2(19, 33)
 states/board_game/node = SubResource("AnimationNodeAnimation_kfm2e")
-states/board_game/position = Vector2(725, 204)
+states/board_game/position = Vector2(708, 205)
+states/enemy_lost/node = SubResource("AnimationNodeAnimation_1451j")
+states/enemy_lost/position = Vector2(571, 305)
+states/hide_rewards/node = SubResource("AnimationNodeAnimation_8yqrs")
+states/hide_rewards/position = Vector2(549, 126)
 states/intro/node = SubResource("AnimationNodeAnimation_a8lnv")
 states/intro/position = Vector2(253, 33)
 states/move_player_first/node = SubResource("AnimationNodeAnimation_vk2qd")
@@ -67,9 +93,11 @@ states/player_lost/node = SubResource("AnimationNodeAnimation_vjnmh")
 states/player_lost/position = Vector2(725, 319)
 states/pre_intro/node = SubResource("AnimationNodeAnimation_wm1wn")
 states/pre_intro/position = Vector2(139, 33)
+states/reward_items/node = SubResource("AnimationNodeAnimation_w4typ")
+states/reward_items/position = Vector2(399, 198)
 states/table_intro/node = SubResource("AnimationNodeAnimation_ygng0")
 states/table_intro/position = Vector2(746, 33)
-transitions = ["move_player_first", "move_player_second", SubResource("AnimationNodeStateMachineTransition_ayf7j"), "intro", "move_player_first", SubResource("AnimationNodeStateMachineTransition_ewsms"), "Start", "pre_intro", SubResource("AnimationNodeStateMachineTransition_if55q"), "pre_intro", "intro", SubResource("AnimationNodeStateMachineTransition_4nk6f"), "move_player_second", "table_intro", SubResource("AnimationNodeStateMachineTransition_rb1n2"), "table_intro", "board_game", SubResource("AnimationNodeStateMachineTransition_em46j"), "board_game", "player_lost", SubResource("AnimationNodeStateMachineTransition_6hmfb")]
+transitions = ["move_player_first", "move_player_second", SubResource("AnimationNodeStateMachineTransition_ayf7j"), "intro", "move_player_first", SubResource("AnimationNodeStateMachineTransition_ewsms"), "Start", "pre_intro", SubResource("AnimationNodeStateMachineTransition_if55q"), "pre_intro", "intro", SubResource("AnimationNodeStateMachineTransition_4nk6f"), "move_player_second", "table_intro", SubResource("AnimationNodeStateMachineTransition_rb1n2"), "table_intro", "board_game", SubResource("AnimationNodeStateMachineTransition_em46j"), "board_game", "player_lost", SubResource("AnimationNodeStateMachineTransition_6hmfb"), "board_game", "enemy_lost", SubResource("AnimationNodeStateMachineTransition_mneh6"), "enemy_lost", "board_game", SubResource("AnimationNodeStateMachineTransition_bkow8"), "enemy_lost", "reward_items", SubResource("AnimationNodeStateMachineTransition_0nrxi"), "reward_items", "hide_rewards", SubResource("AnimationNodeStateMachineTransition_j3d58"), "hide_rewards", "board_game", SubResource("AnimationNodeStateMachineTransition_phtby")]
 graph_offset = Vector2(-47, 0)
 
 [sub_resource type="Animation" id="Animation_m4qun"]
@@ -138,6 +166,13 @@ tracks/6/path = NodePath("../hand")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = PackedFloat32Array(0, 1, 0, 0, 0)
+tracks/7/type = "position_3d"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("../Rewards")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = PackedFloat32Array(0, 1, -200, 1, 0)
 
 [sub_resource type="Animation" id="Animation_6rx2m"]
 resource_name = "intro"
@@ -656,15 +691,118 @@ tracks/1/keys = {
 }]
 }
 
+[sub_resource type="Animation" id="Animation_p183k"]
+resource_name = "enemy_lost"
+length = 8.0
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../table/Board")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(1, 1, 0, 1, 0, 2, 1, 10, 1, 0)
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../God")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 3.03333, 6, 6.03333, 8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"values": [{
+"args": ["Poddaję się."],
+"method": &"Speak"
+}, {
+"args": ["Przegrałem."],
+"method": &"Speak"
+}, {
+"args": ["Zobaczmy..."],
+"method": &"Speak"
+}, {
+"args": [],
+"method": &"LookAtStuff"
+}, {
+"args": [],
+"method": &"LookAtPlayer"
+}]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("..")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(8),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"ShowReward"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_mqadc"]
+resource_name = "reward_items"
+length = 2.0
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Rewards")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, -10, 1, 0, 1, 1, 0, 1, 0)
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [2.0],
+"method": &"DisablePlayerInteraction"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_18ojc"]
+resource_name = "hide_rewards"
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Rewards")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 1, 0, 1, 1, -10, 1, 0)
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [1.0],
+"method": &"DisablePlayerInteraction"
+}]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_dbsmg"]
 _data = {
 "RESET": SubResource("Animation_m4qun"),
 "board_game": SubResource("Animation_n5013"),
+"enemy_lost": SubResource("Animation_p183k"),
+"hide_rewards": SubResource("Animation_18ojc"),
 "intro": SubResource("Animation_6rx2m"),
 "move_player_first": SubResource("Animation_uqy38"),
 "move_player_second": SubResource("Animation_cnah7"),
 "player_lost": SubResource("Animation_vrolq"),
 "pre_intro": SubResource("Animation_j4peu"),
+"reward_items": SubResource("Animation_mqadc"),
 "table_intro": SubResource("Animation_o78h2")
 }
 
@@ -678,7 +816,7 @@ script = ExtResource("1_kto6a")
 environment = ExtResource("1_py42w")
 
 [node name="Player" parent="." instance=ExtResource("2_3y0qj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 18)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
 
 [node name="God" parent="." instance=ExtResource("8_4amqu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.5)
@@ -686,7 +824,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.5)
 [node name="table" parent="." instance=ExtResource("1_noy8h")]
 
 [node name="Board" parent="table" instance=ExtResource("9_wn4nj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 1, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
 [node name="StandingTorches" type="Node3D" parent="."]
 
@@ -768,3 +906,6 @@ shape = SubResource("BoxShape3D_baci4")
 
 [node name="hand" parent="." instance=ExtResource("10_pf3rp")]
 transform = Transform3D(-0.173648, 0, -0.984808, 0, 1, 0, 0.984808, 0, -0.173648, 0, 0, 0)
+
+[node name="Rewards" parent="." instance=ExtResource("11_kjcmt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -200, 1, 0)
