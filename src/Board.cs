@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks.Dataflow;
 using Godot;
 
 namespace Pikol93.CJ13;
@@ -27,6 +26,7 @@ public partial class Board : Node3D
     private double postAttackAnimationTimer;
     private double postPlayerTurnTimer;
     private double postEnemyTurnTimer;
+	private int turnsSinceDamageWasDealt = 0;
 
     public override void _Ready()
     {
@@ -66,7 +66,7 @@ public partial class Board : Node3D
 
         ClearBoard();
         DrawCards();
-        BeginPlayerTurn();
+		postEnemyTurnTimer = 1.0;
     }
 
     public override void _Process(double delta)
@@ -217,12 +217,14 @@ public partial class Board : Node3D
     {
         lastTurnPlayer = true;
         MarkOnlySlotsWithCardsAsSelectable();
+        God.Instance.expectedLookTarget = Vector3.Zero;
+        Player.Instance.expectedLookTarget = new Vector3(0.0f, 0.8f, 0.4f);
     }
 
     public void EndMyTurn()
     {
         PostTurn();
-        postPlayerTurnTimer = 0.2f;
+        postPlayerTurnTimer = 0.4f;
     }
 
     public void PostTurn()
@@ -348,14 +350,6 @@ public partial class Board : Node3D
         return handSlots.Concat(boardSlots.SelectMany(list => list));
     }
 
-    private IEnumerable<Card> IterCards()
-    {
-        return stackCards
-            .Concat(enemyStackCards)
-            .Concat(handCards)
-            .Concat(boardCards.Select((a, b) => a.Value));
-    }
-
     private void PerformAttacks()
     {
         List<(Card, Card, int)> attacks = new();
@@ -432,7 +426,7 @@ public partial class Board : Node3D
             possibleActions.Add(actionMoveCard);
         }
 
-        if (possibleActions.Count == 0)
+        if (possibleActions.Count == 0 || turnsSinceDamageWasDealt > 10)
         {
             EnemyForfeit();
             return;
@@ -442,7 +436,9 @@ public partial class Board : Node3D
         possibleActions[index].Invoke();
 
         PostTurn();
-        postEnemyTurnTimer = 0.2;
+        postEnemyTurnTimer = 0.4;
+        God.Instance.expectedLookTarget = new Vector3(0.0f, 0.8f, 0.0f);
+        Player.Instance.expectedLookTarget = Vector3.Zero;
     }
 
     private Action EnemyDrawCardOnBoard()
@@ -513,5 +509,8 @@ public partial class Board : Node3D
     private static void EnemyForfeit()
     {
         GD.Print("Enemy forfeit!");
+        God.Instance.expectedLookTarget = Vector3.Zero;
+        Player.Instance.expectedLookTarget = Vector3.Zero;
+        God.Instance.Speak("Poddaję się.");
     }
 }

@@ -528,18 +528,18 @@ script = ExtResource("1_kto6a")
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource("1_py42w")
 
-[node name="table" parent="." instance=ExtResource("1_noy8h")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
-
-[node name="Board" parent="table" instance=ExtResource("9_wn4nj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-
 [node name="Player" parent="." instance=ExtResource("2_3y0qj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 18)
 visible = false
 
 [node name="God" parent="." instance=ExtResource("8_4amqu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.5)
+
+[node name="table" parent="." instance=ExtResource("1_noy8h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
+
+[node name="Board" parent="table" instance=ExtResource("9_wn4nj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
 [node name="StandingTorches" type="Node3D" parent="."]
 

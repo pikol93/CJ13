@@ -61,4 +61,9 @@ public partial class God : Node3D
 
         return player.GetCameraPosition();
     }
+
+    public Vector3 GetMaskPosition()
+    {
+        return mask.IsInsideTree() ? mask.GlobalPosition : Vector3.Zero;
+    }
 }

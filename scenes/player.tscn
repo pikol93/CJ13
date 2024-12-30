@@ -27,7 +27,6 @@ script = ExtResource("1_iqvrs")
 [node name="Camera" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
 current = true
-fov = 60.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Camera"]
 extra_cull_margin = 16384.0

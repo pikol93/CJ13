@@ -32,7 +32,8 @@ public partial class Player : Node3D
             CursorManager.SetArrow();
         }
 
-        var difference = expectedLookTarget - Camera.GlobalPosition;
+        var lookTarget = expectedLookTarget.IsZeroApprox() ? GetGodPosition() : expectedLookTarget;
+        var difference = lookTarget - Camera.GlobalPosition;
         var distance = new Vector2(difference.X, difference.Z).Length();
 
         var normalizedOnHorizontalPlane = -new Vector2(-difference.Z, difference.X).Angle();
@@ -65,6 +66,17 @@ public partial class Player : Node3D
                 HandleSelectingInteractables();
             }
         }
+    }
+
+    private static Vector3 GetGodPosition()
+    {
+        var god = God.Instance;
+        if (god == null || !god.IsInsideTree())
+        {
+            return Vector3.Zero;
+        }
+
+        return god.GetMaskPosition();
     }
 
     public Vector3 GetCameraPosition()
