@@ -25,7 +25,7 @@ public partial class Player : Node3D
     {
         if (hoveredInteractable?.IsDisplayable ?? false)
         {
-            Ui.Instance.Item(hoveredInteractable.Name, hoveredInteractable.DisplayableDescription);
+            Ui.Instance.Item(hoveredInteractable.DisplayableName, hoveredInteractable.DisplayableDescription);
         }
 
         if (Input.IsActionPressed("manual_look"))
@@ -78,6 +78,11 @@ public partial class Player : Node3D
     public void LookAtGod()
     {
         expectedLookTarget = Vector3.Zero;
+    }
+
+    public void LookAtRewards()
+    {
+        expectedLookTarget = new Vector3(0.0f, 1.0f, 0.5f);
     }
 
     private static Vector3 GetGodPosition()

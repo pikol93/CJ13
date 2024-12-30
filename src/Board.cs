@@ -158,32 +158,32 @@ public partial class Board : Node3D
 
     public void ClearBoard()
     {
-		foreach (var (_, card) in boardCards)
-		{
-			card.QueueFree();
-		}
-		boardCards.Clear();
+        foreach (var (_, card) in boardCards)
+        {
+            card.QueueFree();
+        }
+        boardCards.Clear();
 
-		foreach (var card in handCards)
-		{
-			card.QueueFree();
-		}
-		handCards.Clear();
-		
-		foreach (var card in stackCards)
-		{
-			card.QueueFree();
-		}
-		stackCards.Clear();
+        foreach (var card in handCards)
+        {
+            card.QueueFree();
+        }
+        handCards.Clear();
 
-		foreach (var card in enemyStackCards)
-		{
-			card.QueueFree();
-		}
-		enemyStackCards.Clear();
+        foreach (var card in stackCards)
+        {
+            card.QueueFree();
+        }
+        stackCards.Clear();
 
-		var myStack = GameManager.MyDeck.Select(item => item.Clone()).ToList();
-		myStack.Shuffle();
+        foreach (var card in enemyStackCards)
+        {
+            card.QueueFree();
+        }
+        enemyStackCards.Clear();
+
+        var myStack = GameManager.MyDeck.Select(item => item.Clone()).ToList();
+        myStack.Shuffle();
 
         stackCards = new Queue<Card>(myStack);
         enemyStackCards = new Queue<Card>(Deck.GenerateDeck(GameManager.EnemyCardCount));

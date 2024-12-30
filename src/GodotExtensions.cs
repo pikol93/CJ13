@@ -6,7 +6,7 @@ namespace Pikol93.CJ13;
 
 public static class GodotExtensions
 {
-    private static readonly Random Random = new();  
+    private static readonly Random Random = new();
 
     public static T GetAncestor<T>(this Node node)
     where T : class
@@ -32,14 +32,15 @@ public static class GodotExtensions
     }
 
     public static void Shuffle<T>(this IList<T> list)
-    {  
-        int n = list.Count;  
-        while (n > 1) {  
-            n--;  
-            int k = Random.Next(n + 1);  
-            T value = list[k];  
-            list[k] = list[n];  
-            list[n] = value;  
-        }  
+    {
+        int n = list.Count;
+        while (n > 1)
+        {
+            n--;
+            int k = Random.Next(n + 1);
+            T value = list[k];
+            list[k] = list[n];
+            list[n] = value;
+        }
     }
 }
