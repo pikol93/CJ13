@@ -11,6 +11,7 @@ public partial class Board : Node3D
 
     public Node3D myStack;
     public Node3D enemyStack;
+	public List<Slot> totalHandSlots = new();
     public List<Slot> handSlots = new();
     public List<List<Slot>> boardSlots = new();
 
@@ -39,7 +40,7 @@ public partial class Board : Node3D
             var child = handChildren[i];
             if (child is Slot slot)
             {
-                handSlots.Add(slot);
+                totalHandSlots.Add(slot);
                 slot.handIndex = i;
             }
         }
@@ -166,7 +167,7 @@ public partial class Board : Node3D
             }
         }
 
-        DrawCards();
+		handSlots = totalHandSlots.Take(GameManager.HandSize).ToList();
         postEnemyTurnTimer = 1.0;
     }
 
@@ -219,6 +220,8 @@ public partial class Board : Node3D
     public void BeginPlayerTurn()
     {
         lastTurnPlayer = true;
+		DrawCards();
+		UpdateCardPositions();
         MarkOnlySlotsWithCardsAsSelectable();
         God.Instance.expectedLookTarget = Vector3.Zero;
         Player.Instance.expectedLookTarget = new Vector3(0.0f, 0.8f, 0.4f);
@@ -430,7 +433,7 @@ public partial class Board : Node3D
             possibleActions.Add(actionMoveCard);
         }
 
-        if (possibleActions.Count == 0 || turnsSinceDamageWasDealt > 10)
+        if (possibleActions.Count == 0 || turnsSinceDamageWasDealt > 25)
         {
             EnemyForfeit();
             return;

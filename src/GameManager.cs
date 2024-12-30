@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using Godot;
 
 namespace Pikol93.CJ13;
@@ -29,6 +30,7 @@ public partial class GameManager : Node
 
     public static List<Card> MyDeck { get; private set; }
     public static int EnemyCardCount { get; set; } = 3;
+    public static int HandSize { get; set; } = 2;
 
     public override void _Ready()
     {

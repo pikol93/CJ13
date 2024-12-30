@@ -56,7 +56,7 @@ advance_mode = 2
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_iomik"]
 states/Start/position = Vector2(19, 33)
 states/board_game/node = SubResource("AnimationNodeAnimation_kfm2e")
-states/board_game/position = Vector2(725, 149)
+states/board_game/position = Vector2(725, 204)
 states/intro/node = SubResource("AnimationNodeAnimation_a8lnv")
 states/intro/position = Vector2(253, 33)
 states/move_player_first/node = SubResource("AnimationNodeAnimation_vk2qd")
@@ -64,7 +64,7 @@ states/move_player_first/position = Vector2(388, 33)
 states/move_player_second/node = SubResource("AnimationNodeAnimation_f1l7n")
 states/move_player_second/position = Vector2(578, 33)
 states/player_lost/node = SubResource("AnimationNodeAnimation_vjnmh")
-states/player_lost/position = Vector2(726, 254)
+states/player_lost/position = Vector2(725, 319)
 states/pre_intro/node = SubResource("AnimationNodeAnimation_wm1wn")
 states/pre_intro/position = Vector2(139, 33)
 states/table_intro/node = SubResource("AnimationNodeAnimation_ygng0")
@@ -118,7 +118,7 @@ tracks/4/enabled = true
 tracks/4/path = NodePath("../table/Board")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
-tracks/4/keys = PackedFloat32Array(0, 1, 10, 1, 0)
+tracks/4/keys = PackedFloat32Array(0, 1, 30, 1, 0)
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
@@ -678,7 +678,7 @@ script = ExtResource("1_kto6a")
 environment = ExtResource("1_py42w")
 
 [node name="Player" parent="." instance=ExtResource("2_3y0qj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 18)
 
 [node name="God" parent="." instance=ExtResource("8_4amqu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.5)
@@ -686,7 +686,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.5)
 [node name="table" parent="." instance=ExtResource("1_noy8h")]
 
 [node name="Board" parent="table" instance=ExtResource("9_wn4nj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 1, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 1, 0)
 
 [node name="StandingTorches" type="Node3D" parent="."]
 
@@ -767,4 +767,4 @@ texture = ExtResource("8_6h5tk")
 shape = SubResource("BoxShape3D_baci4")
 
 [node name="hand" parent="." instance=ExtResource("10_pf3rp")]
-transform = Transform3D(-0.173648, 0, -0.984808, 0, 1, 0, 0.984808, 0, -0.173648, 0, 1.8, 1)
+transform = Transform3D(-0.173648, 0, -0.984808, 0, 1, 0, 0.984808, 0, -0.173648, 0, 0, 0)
